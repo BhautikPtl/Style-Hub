@@ -5,7 +5,7 @@ import Login3d from './../3dImage/Login-3d.png'
 
 function Login() {
     return (
-        <div className="min-h-screen bg-zinc-100 px-4 py-8 flex items-center justify-center sm:px-6 lg:px-8">
+        <div className="min-h-screen px-4 py-8 flex items-center justify-center sm:px-6 lg:px-8">
             <div className="w-full max-w-6xl overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-black/10 lg:grid lg:grid-cols-2">
                 <div className="relative hidden overflow-hidden bg-gradient-to-br from-black via-zinc-900 to-zinc-800 px-10 text-white lg:flex xl:px-16">
                     <div className="relative z-10 flex flex-col justify-start pt-14 xl:pt-16">

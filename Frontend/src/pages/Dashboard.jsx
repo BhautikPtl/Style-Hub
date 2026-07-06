@@ -10,7 +10,7 @@ function Dashboard() {
 
       <Navbar />
 
-      <div className="flex flex-col-reverse md:flex-row lg:flex-row items-center justify-between w-full min-h-[80vh] lg:min-h-[65vh] md:min-h-[60vh] rounded-3xl bg-white overflow-hidden shadow-[0_1px_7px_rgba(15,23,42,0.40)]">
+      <div className="flex flex-col-reverse md:flex-row lg:flex-row items-center justify-between w-full min-h-[80vh] lg:min-h-[65vh] md:min-h-[40vh] rounded-3xl bg-white overflow-hidden shadow-[0_1px_7px_rgba(15,23,42,0.40)]">
 
         {/* Left Content */}
         <div className="w-full lg:w-1/2 flex flex-col justify-center items-start px-6 py-10 lg:px-20">
@@ -63,78 +63,86 @@ function Dashboard() {
 
       </div>
 
-      <div className="w-full h-[20vh] rounded-3xl p-6 shadow-[0_1px_7px_rgba(15,23,42,0.40)]">
+      <div className="w-full rounded-3xl p-4 shadow-[0_1px_7px_rgba(15,23,42,0.40)] lg:p-8">
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-4 gap-2 md:gap-4 lg:gap-6">
 
           {/* Free Shipping */}
-          <div className="flex items-center justify-center gap-3 py-4 lg:border-r lg:border-black/20">
-            <FontAwesomeIcon
-              icon={faTruck}
-              className="text-black text-3xl lg:text-4xl"
-            />
+          <div className="flex flex-col lg:flex-row items-center text-center lg:text-left gap-2 lg:gap-3">
+            <div className=" rounded-full p-2 md:p-3 lg:p-4 shadow-[0_1px_7px_rgba(15,23,42,0.40)]">
+              <FontAwesomeIcon
+                icon={faTruck}
+                className="text-lg  md:text-2xl lg:text-2xl"
+              />
+            </div>
 
             <div>
-              <h2 className="text-black text-lg lg:text-xl font-medium">
+              <h2 className="text-[10px] md:text-sm lg:text-lg font-medium">
                 Free Shipping
               </h2>
 
-              <p className="text-black/70 text-sm lg:text-base">
-                On order over 1000
+              <p className="text-[8px] md:text-xs lg:text-sm text-gray-600">
+                On orders over 999
               </p>
             </div>
           </div>
 
           {/* Secure Payment */}
-          <div className="flex items-center justify-center gap-3 py-4 lg:border-r lg:border-black/20">
-            <FontAwesomeIcon
-              icon={faShield}
-              className="text-black text-3xl lg:text-4xl"
-            />
+          <div className="flex flex-col lg:flex-row items-center text-center lg:text-left gap-2 lg:gap-3">
+            <div className="bg-white rounded-full p-2 md:p-3 lg:p-4 shadow-[0_1px_7px_rgba(15,23,42,0.40)]">
+              <FontAwesomeIcon
+                icon={faShield}
+                className="text-lg md:text-2xl lg:text-2xl"
+              />
+            </div>
 
             <div>
-              <h2 className="text-black text-lg lg:text-xl font-medium">
+              <h2 className="text-[10px] md:text-sm lg:text-lg font-medium">
                 Secure Payment
               </h2>
 
-              <p className="text-black/70 text-sm lg:text-base">
-                100% secure payments
+              <p className="text-[8px] md:text-xs lg:text-sm text-gray-600">
+                100% Secure
               </p>
             </div>
           </div>
 
           {/* Easy Returns */}
-          <div className="flex items-center justify-center gap-3 py-4 lg:border-r lg:border-black/20">
-            <FontAwesomeIcon
-              icon={faRotate}
-              className="text-black text-3xl lg:text-4xl"
-            />
+          <div className="flex flex-col lg:flex-row items-center text-center lg:text-left gap-2 lg:gap-3">
+            <div className="bg-white rounded-full p-2 md:p-3 lg:p-4 shadow-[0_1px_7px_rgba(15,23,42,0.40)]">
+              <FontAwesomeIcon
+                icon={faRotate}
+                className="text-lg md:text-2xl lg:text-2xl"
+              />
+            </div>
 
             <div>
-              <h2 className="text-black text-lg lg:text-xl font-medium">
+              <h2 className="text-[10px] md:text-sm lg:text-lg font-medium">
                 Easy Returns
               </h2>
 
-              <p className="text-black/70 text-sm lg:text-base">
-                30-day return policy
+              <p className="text-[8px] md:text-xs lg:text-sm text-gray-600">
+                30 Days Return
               </p>
             </div>
           </div>
 
-          {/* Support */}
-          <div className="flex items-center justify-center gap-3 py-4">
-            <FontAwesomeIcon
-              icon={faHeadset}
-              className="text-black text-3xl lg:text-4xl"
-            />
+          {/* 24/7 Support */}
+          <div className="flex flex-col lg:flex-row items-center text-center lg:text-left gap-2 lg:gap-3">
+            <div className="bg-white rounded-full p-2 md:p-3 lg:p-4 shadow-[0_1px_7px_rgba(15,23,42,0.40)]">
+              <FontAwesomeIcon
+                icon={faHeadset}
+                className="text-lg md:text-2xl lg:text-2xl"
+              />
+            </div>
 
             <div>
-              <h2 className="text-black text-lg lg:text-xl font-medium">
+              <h2 className="text-[10px] md:text-sm lg:text-lg font-medium">
                 24/7 Support
               </h2>
 
-              <p className="text-black/70 text-sm lg:text-base">
-                We're here to help
+              <p className="text-[8px] md:text-xs lg:text-sm text-gray-600">
+                We're Here
               </p>
             </div>
           </div>
@@ -142,7 +150,7 @@ function Dashboard() {
         </div>
 
       </div>
-      
+
     </div>
 
   )

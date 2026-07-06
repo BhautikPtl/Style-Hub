@@ -115,7 +115,7 @@ function Navbar() {
                     </ul>
                 </nav>
 
-                <div className="h-10 w-[1.3px] bg-gradient-to-b from-transparent via-gray-300 to-transparent"></div>
+                <div className="hidden lg:block lg:h-10 lg:w-[1.3px] bg-gradient-to-b from-transparent via-gray-300 to-transparent"></div>
 
                 <div className="ml-auto lg:ml-0 flex gap-4 items-center">
 

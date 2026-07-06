@@ -8,6 +8,7 @@ import Categories from './pages/Categories'
 import Orders from './pages/Orders'
 import Wishlist from './pages/Wishlist'
 import Review from './pages/Review'
+import Cart from './pages/Cart'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/orders" element={<Orders/>} />
         <Route path="/wishlist" element={<Wishlist/>} />
         <Route path="/review" element={<Review/>} />
+        <Route path="/cart" element={<Cart/>} />
       </Routes>
     </div>
   )

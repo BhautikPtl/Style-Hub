@@ -2,7 +2,7 @@ import { React, useState } from 'react'
 import logo from '../assets/Logo.png'
 import userPlaceholder from '../assets/UserPlaceholder.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouse, faBagShopping, faLayerGroup, faBoxOpen, faHeart, faStar, faBars, faAngleDown, faAngleUp, faArrowRightFromBracket, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faHouse, faBagShopping, faLayerGroup, faBoxOpen, faHeart, faStar, faBars, faAngleDown, faAngleUp, faArrowRightFromBracket, faXmark, faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from 'react-router-dom'
 
 
@@ -18,7 +18,7 @@ function Navbar() {
     return (
         <div className="mt-2 mb-2 rounded-[32px] border border-white/20 bg-white/10 backdrop-blur-4xl shadow-[0_1px_7px_rgba(15,23,42,0.40)] backdrop-saturate-150">
 
-            <div className="flex justify-evenly lg:flex items-center gap-4 px-4 py-2">
+            <div className="flex lg:flex items-center gap-4 px-4 py-2">
 
                 <div className="lg:hidden flex items-center gap-2">
 
@@ -42,33 +42,33 @@ function Navbar() {
 
 
                     {isOpen && (
-                        <div className="absolute left-4 right-4 top-20 rounded-2xl bg-white/30 flex flex-col  gap-2 p-5 shadow-[0_1px_10px_rgba(15,23,42,0.20)] backdrop-blur-lg lg:hidden">
-                            <NavLink to="/" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition bg-black text-white shadow-[0_1px_10px_rgba(15,23,42,0.40)]  px-4 py-3 rounded-4xl " : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2"}>
+                        <div className="absolute left-4 right-4 top-20 rounded-2xl bg-white/90 flex flex-col  gap-2 p-5 shadow-[0_1px_10px_rgba(15,23,42,0.20)]  lg:hidden">
+                            <NavLink to="/" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition underline p-2 rounded-4xl " : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2"}>
                                 {/* <FontAwesomeIcon icon={faHouse} /> */}
                                 Home
                             </NavLink>
 
-                            <NavLink to="/shop" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition bg-black text-white shadow-[0_1px_10px_rgba(15,23,42,0.40)] px-4 py-3 rounded-4xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
+                            <NavLink to="/shop" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition underline p-2 rounded-4xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
                                 {/* <FontAwesomeIcon icon={faBagShopping} /> */}
                                 Shop
                             </NavLink>
 
-                            <NavLink to="/categories" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition bg-black text-white shadow-[0_1px_10px_rgba(15,23,42,0.40)]  px-4 py-3 rounded-4xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
+                            <NavLink to="/categories" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition underline p-2 rounded-4xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
                                 {/* <FontAwesomeIcon icon={faLayerGroup} /> */}
                                 Categories
                             </NavLink>
 
-                            <NavLink to="/orders" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition bg-black text-white shadow-[0_1px_10px_rgba(15,23,42,0.40)]  px-4 py-3 rounded-4xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
+                            <NavLink to="/orders" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition underline p-2 rounded-4xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
                                 {/* <FontAwesomeIcon icon={faBoxOpen} /> */}
                                 Orders
                             </NavLink>
 
-                            <NavLink to="/wishlist" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition bg-black text-white shadow-[0_1px_10px_rgba(15,23,42,0.40)]  px-4 py-3 rounded-4xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
+                            <NavLink to="/wishlist" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition underline p-2 rounded-4xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
                                 {/* <FontAwesomeIcon icon={faHeart} /> */}
                                 Wishlist
                             </NavLink>
 
-                            <NavLink to="/review" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition bg-black text-white shadow-[0_1px_10px_rgba(15,23,42,0.40)]  px-4 py-3 rounded-4xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
+                            <NavLink to="/review" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition underline p-2 rounded-4xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
                                 {/* <FontAwesomeIcon icon={faStar} /> */}
                                 Review
                             </NavLink>
@@ -83,56 +83,63 @@ function Navbar() {
 
                 <nav className=" hidden lg:block ml-auto ">
                     <ul className="flex space-x-4 gap-4">
-                        <NavLink to="/" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition bg-black text-white shadow-[0_1px_10px_rgba(15,23,42,0.50)]  px-4 py-3 rounded-4xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2"}>
+                        <NavLink to="/" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition bg-black text-white shadow-[0_1px_10px_rgba(15,23,42,0.50)]  px-4 py-3 rounded-xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2"}>
                             <FontAwesomeIcon icon={faHouse} />
                             Home
                         </NavLink>
 
-                        <NavLink to="/shop" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition bg-black text-white shadow-[0_1px_10px_rgba(15,23,42,0.50)] px-4 py-3 rounded-4xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
+                        <NavLink to="/shop" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition bg-black text-white shadow-[0_1px_10px_rgba(15,23,42,0.50)] px-4 py-3 rounded-xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
                             <FontAwesomeIcon icon={faBagShopping} />
                             Shop
                         </NavLink>
 
-                        <NavLink to="/categories" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition bg-black text-white shadow-[0_1px_10px_rgba(15,23,42,0.50)] px-4 py-3 rounded-4xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
+                        <NavLink to="/categories" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition bg-black text-white shadow-[0_1px_10px_rgba(15,23,42,0.50)] px-4 py-3 rounded-xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
                             <FontAwesomeIcon icon={faLayerGroup} />
                             Categories
                         </NavLink>
 
-                        <NavLink to="/orders" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition bg-black text-white shadow-[0_1px_10px_rgba(15,23,42,0.50)] px-4 py-3 rounded-4xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
+                        <NavLink to="/orders" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition bg-black text-white shadow-[0_1px_10px_rgba(15,23,42,0.50)] px-4 py-3 rounded-xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
                             <FontAwesomeIcon icon={faBoxOpen} />
                             Orders
                         </NavLink>
 
-                        <NavLink to="/wishlist" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition bg-black text-white shadow-[0_1px_10px_rgba(15,23,42,0.50)] px-4 py-3 rounded-4xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
+                        <NavLink to="/wishlist" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition bg-black text-white shadow-[0_1px_10px_rgba(15,23,42,0.50)] px-4 py-3 rounded-xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
                             <FontAwesomeIcon icon={faHeart} />
                             Wishlist
                         </NavLink>
 
-                        <NavLink to="/review" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition bg-black text-white shadow-[0_1px_10px_rgba(15,23,42,0.50)] px-4 py-3 rounded-4xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
+                        <NavLink to="/review" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition bg-black text-white shadow-[0_1px_10px_rgba(15,23,42,0.50)] px-4 py-3 rounded-xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
                             <FontAwesomeIcon icon={faStar} />
                             Review
                         </NavLink>
                     </ul>
                 </nav>
 
-                <p className="hidden lg:block ml-4 text-black font-light">|</p>
+                <div className="h-10 w-[1.3px] bg-gradient-to-b from-transparent via-gray-300 to-transparent"></div>
 
-                <div className="ml-auto lg:ml-0 flex items-center">
+                <div className="ml-auto lg:ml-0 flex gap-4 items-center">
+
                     {Islogin ? (
                         <>
+                            <NavLink to="/cart" className="relative inline-block">
+                                <FontAwesomeIcon
+                                    icon={faCartShopping}
+                                    className="text-2xl cursor-pointer"
+                                />
+
+                                <div className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full  bg-gray-300 text-black text-xs font-bold shadow-lg">
+                                    0
+                                </div>
+                            </NavLink>
+
                             <button onClick={() => {
                                 setIsDropdownOpen(!isDropdownOpen)
                                 setIsOpen(false)
                             }}
-                                className="flex items-center gap-3 rounded-4xl border px-3 py-2 transition cursor-pointer bg-black  shadow-[0_1px_10px_rgba(15,23,42,0.50)]"
+                                className="flex items-center gap-3 rounded-4xl px-3 py-2 transition cursor-pointer"
                             >
                                 <img src={IsUser ? logo : userPlaceholder} alt="Profile" className=" w-7 rounded-full border" />
-                                <span className="hidden lg:block text-white font-normal">Hello, Bhautik</span>
-                                {isDropdownOpen ? (
-                                    <FontAwesomeIcon icon={faAngleUp} className="text-white" />
-                                ) : (
-                                    <FontAwesomeIcon icon={faAngleDown} className="text-white" />
-                                )}
+                                <span className="hidden lg:block font-normal">Hello, Bhautik</span>
                             </button>
 
                             {isDropdownOpen && (

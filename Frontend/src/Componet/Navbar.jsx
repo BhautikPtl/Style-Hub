@@ -1,169 +1,195 @@
-import { React, useState } from 'react'
-import logo from '../assets/Logo.png'
-import userPlaceholder from '../assets/UserPlaceholder.png'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouse, faBagShopping, faLayerGroup, faBoxOpen, faHeart, faStar, faBars, faAngleDown, faAngleUp, faArrowRightFromBracket, faXmark, faCartShopping } from '@fortawesome/free-solid-svg-icons'
-import { NavLink } from 'react-router-dom'
+import React, { useState } from "react";
+import logo from "../assets/Logo.png";
+import userPlaceholder from "../assets/UserPlaceholder.png";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHouse,
+  faBagShopping,
+  faLayerGroup,
+  faBoxOpen,
+  faHeart,
+  faStar,
+  faBars,
+  faXmark,
+  faArrowRightFromBracket,
+  faCartShopping,
+} from "@fortawesome/free-solid-svg-icons";
 
-
+import { NavLink } from "react-router-dom";
 
 function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-    const Islogin = true; // Replace with your actual login state
-    const [isOpen, setIsOpen] = useState(false);
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const IsUser = false; // Replace with your actual user state
+  const Islogin = true;
+  const IsUser = false;
 
-    return (
-        <div className="mt-2 mb-2 rounded-[32px] border border-white/20 bg-white/10 backdrop-blur-4xl shadow-[0_1px_7px_rgba(15,23,42,0.40)] backdrop-saturate-150">
+  const navItems = [
+    { path: "/", label: "Home", icon: faHouse },
+    { path: "/shop", label: "Shop", icon: faBagShopping },
+    { path: "/orders", label: "Orders", icon: faBoxOpen },
+    { path: "/wishlist", label: "Wishlist", icon: faHeart },
+    { path: "/review", label: "Review", icon: faStar },
+  ];
 
-            <div className="flex lg:flex items-center gap-4 px-4 py-2">
+  return (
+    <header className="sticky top-4 z-50">
+      <div className="rounded-[32px] border border-gray-200 bg-white/80 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
 
-                <div className="lg:hidden flex items-center gap-2">
+        <div className="flex items-center justify-between px-4 lg:px-6 py-3">
 
-                    {isOpen ? (
-                        <FontAwesomeIcon
-                            icon={faXmark
-                            }
-                            onClick={() => setIsOpen(!isOpen)}
-                            className="h-6 w-6 cursor-pointer text-xl text-black "
-                        />
-                    ) : (
-                        <FontAwesomeIcon
-                            icon={faBars}
-                            onClick={() => {
-                                setIsOpen(!isOpen)
-                                setIsDropdownOpen(false)
-                            }}
-                            className="h-6 w-6 cursor-pointer text-xl text-black "
-                        />
-                    )}
+          {/* Left */}
+          <div className="flex items-center gap-3">
 
+            {/* Mobile Menu Button */}
+            <button
+              className="lg:hidden"
+              onClick={() => {
+                setIsOpen(!isOpen);
+                setIsDropdownOpen(false);
+              }}
+            >
+              <FontAwesomeIcon
+                icon={isOpen ? faXmark : faBars}
+                className="text-xl"
+              />
+            </button>
 
-                    {isOpen && (
-                        <div className="absolute left-4 right-4 top-20 rounded-2xl bg-white/90 flex flex-col  gap-2 p-5 shadow-[0_1px_10px_rgba(15,23,42,0.20)]  lg:hidden">
-                            <NavLink to="/" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition underline p-2 rounded-4xl " : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2"}>
-                                {/* <FontAwesomeIcon icon={faHouse} /> */}
-                                Home
-                            </NavLink>
+            {/* Logo */}
+            <NavLink to="/" className="flex items-center gap-2">
+              <img
+                src={logo}
+                alt="Logo"
+                className="w-8 lg:w-10"
+              />
 
-                            <NavLink to="/shop" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition underline p-2 rounded-4xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
-                                {/* <FontAwesomeIcon icon={faBagShopping} /> */}
-                                Shop
-                            </NavLink>
+              <h1 className="text-xl lg:text-2xl font-medium">
+                StyleHub
+              </h1>
+            </NavLink>
+          </div>
 
-                            <NavLink to="/categories" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition underline p-2 rounded-4xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
-                                {/* <FontAwesomeIcon icon={faLayerGroup} /> */}
-                                Categories
-                            </NavLink>
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:block">
+            <ul className="flex items-center gap-2">
+              {navItems.map((item) => (
+                <NavLink
+                  key={item.path}
+                  to={item.path}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "flex items-center gap-2 bg-black text-white px-4 py-3 rounded-xl shadow-lg"
+                      : "flex items-center gap-2 px-4 py-3 rounded-xl hover:bg-gray-100 transition"
+                  }
+                >
+                  <FontAwesomeIcon icon={item.icon} />
+                  {item.label}
+                </NavLink>
+              ))}
+            </ul>
+          </nav>
 
-                            <NavLink to="/orders" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition underline p-2 rounded-4xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
-                                {/* <FontAwesomeIcon icon={faBoxOpen} /> */}
-                                Orders
-                            </NavLink>
+          {/* Right */}
+          <div className="flex items-center gap-4">
 
-                            <NavLink to="/wishlist" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition underline p-2 rounded-4xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
-                                {/* <FontAwesomeIcon icon={faHeart} /> */}
-                                Wishlist
-                            </NavLink>
+            {Islogin ? (
+              <>
+                {/* Cart */}
+                <NavLink
+                  to="/cart"
+                  className="relative"
+                >
+                  <FontAwesomeIcon
+                    icon={faCartShopping}
+                    className="text-2xl"
+                  />
 
-                            <NavLink to="/review" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition underline p-2 rounded-4xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
-                                {/* <FontAwesomeIcon icon={faStar} /> */}
-                                Review
-                            </NavLink>
-                        </div>
-                    )}
-                </div>
+                  <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-black text-white text-[10px] font-bold">
+                    0
+                  </span>
+                </NavLink>
 
-                <div className="flex items-center gap-2">
-                    <img src={logo} alt="Logo" className="w-7 lg:w-10 " />
-                    <h1 className="text-xl  lg:text-2xl font-normal">StyleHub</h1>
-                </div>
+                {/* Divider */}
+                <div className="hidden lg:block h-8 w-px bg-gray-300"></div>
 
-                <nav className=" hidden lg:block ml-auto ">
-                    <ul className="flex space-x-4 gap-4">
-                        <NavLink to="/" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition bg-black text-white shadow-[0_1px_10px_rgba(15,23,42,0.50)]  px-4 py-3 rounded-xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2"}>
-                            <FontAwesomeIcon icon={faHouse} />
-                            Home
-                        </NavLink>
+                {/* Profile */}
+                <button
+                  onClick={() => {
+                    setIsDropdownOpen(!isDropdownOpen);
+                    setIsOpen(false);
+                  }}
+                  className="flex items-center gap-3 rounded-full px-5 py-2 cursor-pointer hover:bg-gray-100 transition"
+                >
+                  <img
+                    src={IsUser ? logo : userPlaceholder}
+                    alt="Profile"
+                    className="w-8 h-8 rounded-full border"
+                  />
 
-                        <NavLink to="/shop" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition bg-black text-white shadow-[0_1px_10px_rgba(15,23,42,0.50)] px-4 py-3 rounded-xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
-                            <FontAwesomeIcon icon={faBagShopping} />
-                            Shop
-                        </NavLink>
+                  <span className="hidden lg:block">
+                    Hello, Bhautik
+                  </span>
+                </button>
 
-                        <NavLink to="/categories" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition bg-black text-white shadow-[0_1px_10px_rgba(15,23,42,0.50)] px-4 py-3 rounded-xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
-                            <FontAwesomeIcon icon={faLayerGroup} />
-                            Categories
-                        </NavLink>
+                {/* Dropdown */}
+                {isDropdownOpen && (
+                  <div className="absolute right-4 top-[78px] w-44 rounded-2xl border border-gray-100 bg-white shadow-xl p-2">
+                    <NavLink
+                      to="/profile"
+                      className="block px-3 py-2 rounded-lg hover:bg-gray-100"
+                    >
+                      Profile
+                    </NavLink>
 
-                        <NavLink to="/orders" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition bg-black text-white shadow-[0_1px_10px_rgba(15,23,42,0.50)] px-4 py-3 rounded-xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
-                            <FontAwesomeIcon icon={faBoxOpen} />
-                            Orders
-                        </NavLink>
+                    <button className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100">
+                      <FontAwesomeIcon
+                        icon={faArrowRightFromBracket}
+                        className="mr-2"
+                      />
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </>
+            ) : (
+              <NavLink
+                to="/login"
+                className="rounded-xl bg-black px-5 py-2.5 text-white hover:bg-zinc-800 transition"
+              >
+                Login
+              </NavLink>
+            )}
+          </div>
+        </div>
 
-                        <NavLink to="/wishlist" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition bg-black text-white shadow-[0_1px_10px_rgba(15,23,42,0.50)] px-4 py-3 rounded-xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
-                            <FontAwesomeIcon icon={faHeart} />
-                            Wishlist
-                        </NavLink>
+        {/* Mobile Menu */}
+        {isOpen && (
+          <div className="lg:hidden border-t border-gray-100 p-4">
 
-                        <NavLink to="/review" className={({ isActive }) => isActive ? "flex items-center gap-2 text-md font-normal text-black transition bg-black text-white shadow-[0_1px_10px_rgba(15,23,42,0.50)] px-4 py-3 rounded-xl" : "flex items-center gap-2 text-md font-normal text-black transition hover:text-zinc-600 p-2 rounded"}>
-                            <FontAwesomeIcon icon={faStar} />
-                            Review
-                        </NavLink>
-                    </ul>
-                </nav>
-
-                <div className="hidden lg:block lg:h-10 lg:w-[1.3px] bg-gradient-to-b from-transparent via-gray-300 to-transparent"></div>
-
-                <div className="ml-auto lg:ml-0 flex gap-4 items-center">
-
-                    {Islogin ? (
-                        <>
-                            <NavLink to="/cart" className="relative inline-block">
-                                <FontAwesomeIcon
-                                    icon={faCartShopping}
-                                    className="text-2xl cursor-pointer"
-                                />
-
-                                <div className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full  bg-gray-300 text-black text-xs font-bold shadow-lg">
-                                    0
-                                </div>
-                            </NavLink>
-
-                            <button onClick={() => {
-                                setIsDropdownOpen(!isDropdownOpen)
-                                setIsOpen(false)
-                            }}
-                                className="flex items-center gap-3 rounded-4xl px-3 py-2 transition cursor-pointer"
-                            >
-                                <img src={IsUser ? logo : userPlaceholder} alt="Profile" className=" w-7 rounded-full border" />
-                                <span className="hidden lg:block font-normal">Hello, Bhautik</span>
-                            </button>
-
-                            {isDropdownOpen && (
-                                <div className="absolute right-4 top-20 rounded-2xl bg-white/30 p-4 shadow-lg backdrop-blur-lg ">
-                                    <a href="/logout" className="block py-2 hover:underline">
-                                        <FontAwesomeIcon icon={faArrowRightFromBracket} className="mr-2" />
-                                        Logout
-                                    </a>
-                                </div>
-                            )}
-
-
-                        </>
-                    ) : (
-                        <a href="/login" className="rounded-xl bg-black px-4 py-2 text-white transition hover:bg-zinc-800 focus:outline-none focus:ring-4 focus:ring-zinc-300">
-                            Login
-                        </a>
-                    )}
-                </div>
-
+            <div className="flex flex-col gap-2">
+              {navItems.map((item) => (
+                <NavLink
+                  key={item.path}
+                  to={item.path}
+                  onClick={() => setIsOpen(false)}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "flex items-center gap-3 bg-black text-white px-4 py-3 rounded-xl"
+                      : "flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-100"
+                  }
+                >
+                  <FontAwesomeIcon icon={item.icon} />
+                  {item.label}
+                </NavLink>
+              ))}
             </div>
 
-        </div>
-    )
+          </div>
+        )}
+      </div>
+    </header>
+  );
 }
 
-export default Navbar
+export default Navbar;

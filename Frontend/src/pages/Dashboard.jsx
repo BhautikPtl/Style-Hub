@@ -1,159 +1,286 @@
-import React from 'react'
-import Navbar from '../Componet/Navbar'
-import Herobg from '../assets/heroImg.png'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTruck, faShield, faRotate, faHeadset } from '@fortawesome/free-solid-svg-icons'
+import React from "react";
+import Navbar from "../Componet/Navbar";
+import Herobg from "../assets/heroImg.png";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faTruck,
+  faShield,
+  faRotate,
+  faHeadset,
+} from "@fortawesome/free-solid-svg-icons";
+import Footer from "../Componet/Footer";
 
 function Dashboard() {
-  return (
-    <div className="h-screen flex flex-col gap-5 px-6 py-6">
+  const features = [
+    {
+      icon: faTruck,
+      title: "Free Shipping",
+      subtitle: "On orders over ₹999",
+    },
+    {
+      icon: faShield,
+      title: "Secure Payment",
+      subtitle: "100% Secure",
+    },
+    {
+      icon: faRotate,
+      title: "Easy Returns",
+      subtitle: "30 Days Return",
+    },
+    {
+      icon: faHeadset,
+      title: "24/7 Support",
+      subtitle: "We're Here",
+    },
+  ];
 
+  const products = [
+    {
+      id: 1,
+      name: "Premium Hoodie",
+      price: 999,
+      oldPrice: 1999,
+      discount: "50% OFF",
+      image: Herobg,
+    },
+    {
+      id: 2,
+      name: "Casual Shirt",
+      price: 799,
+      oldPrice: 1399,
+      discount: "40% OFF",
+      image: Herobg,
+    },
+    {
+      id: 3,
+      name: "Denim Jacket",
+      price: 1499,
+      oldPrice: 2299,
+      discount: "35% OFF",
+      image: Herobg,
+    },
+    {
+      id: 4,
+      name: "Oversized T-Shirt",
+      price: 599,
+      oldPrice: 1199,
+      discount: "50% OFF",
+      image: Herobg,
+    },
+  ];
+  return (
+    <div className="min-h-screen bg-gray-50 px-4 md:px-6 py-6">
+
+      {/* Navbar */}
       <Navbar />
 
-      <div className="flex flex-col-reverse md:flex-row lg:flex-row items-center justify-between w-full min-h-[80vh] lg:min-h-[65vh] md:min-h-[40vh] rounded-3xl bg-white overflow-hidden shadow-[0_1px_7px_rgba(15,23,42,0.40)]">
+      {/* Hero Section */}
+      <section className="mt-5 relative overflow-hidden rounded-[32px] bg-white border border-gray-100 shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
 
-        {/* Left Content */}
-        <div className="w-full lg:w-1/2 flex flex-col justify-center items-start px-6 py-10 lg:px-20">
+        {/* Background Glow */}
+        <div className="absolute right-[-100px] top-1/2 -translate-y-12 w-[300px] h-[300px] md:w-[450px] md:h-[450px] lg:w-[550px] lg:h-[550px] rounded-full bg-gray-100 blur-3xl"></div>
 
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight">
-            <span className="text-gray-400">
-              Elevate Your
-            </span>
+        <div className="relative flex flex-col-reverse lg:flex-row items-center justify-between min-h-[500px] md:min-h-[600px] lg:min-h-[650px]">
 
-            <span className="block text-black">
-              Everyday Style
-            </span>
-          </h1>
+          {/* Left Content */}
+          <div className="w-full lg:w-1/2 px-6 md:px-10 lg:px-20 py-10 z-10">
 
-          <p className="mt-5 text-gray-500 text-base lg:text-lg max-w-xl">
-            Discover the latest trends in fashion and accessories.
-            Shop now to elevate your everyday style.
-          </p>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[0.95]">
 
-          <div className="flex flex-col sm:flex-row gap-4 mt-8 w-full sm:w-auto">
+              <span className="text-gray-400 block">
+                Elevate Your
+              </span>
 
-            <button className="bg-black text-white px-8 py-4 rounded-2xl font-semibold hover:scale-105 transition-all">
-              Shop Now
-            </button>
+              <span className="text-black block mt-2">
+                Everyday Style
+              </span>
 
-            <button className="border-2 border-black px-8 py-4 rounded-2xl font-semibold hover:scale-105 transition-all">
-              Explore
-            </button>
+            </h1>
 
+            <p className="mt-6 text-gray-500 text-base lg:text-lg leading-relaxed max-w-xl">
+              Discover the latest trends in fashion and accessories.
+              Shop premium collections designed to elevate your
+              everyday look.
+            </p>
+
+            <div className="flex flex-wrap gap-4 mt-8">
+
+              <button className="bg-black text-white px-8 py-4 rounded-2xl font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                Shop Now
+              </button>
+
+              <button className="border border-black px-8 py-4 rounded-2xl font-semibold transition-all duration-300 hover:bg-black hover:text-white">
+                Explore
+              </button>
+
+            </div>
           </div>
 
+          {/* Right Image */}
+          <div className="relative w-full lg:w-1/2 flex justify-center items-center py-10">
+
+            {/* Circle Background */}
+            <div className="absolute w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] md:w-[450px] md:h-[450px] lg:w-[550px] lg:h-[550px] rounded-full bg-gray-100"></div>
+
+            {/* Trending Card */}
+            <div className="hidden lg:flex absolute top-20 left-5 bg-white rounded-2xl shadow-lg px-5 py-3 z-20">
+              <div>
+                <p className="font-semibold">🔥 Trending</p>
+                <p className="text-sm text-gray-500">
+                  Summer Collection
+                </p>
+              </div>
+            </div>
+
+            <img
+              src={Herobg}
+              alt="Fashion Hero"
+              className="
+                relative z-10
+                w-full
+                max-w-[320px]
+                sm:max-w-[420px]
+                md:max-w-[520px]
+                lg:max-w-[620px]
+                xl:max-w-[700px]
+                object-contain
+                select-none
+                pointer-events-none
+              "
+            />
+
+            {/* Offer Card */}
+            <div className="hidden lg:flex absolute bottom-16 right-8 bg-white rounded-2xl shadow-lg px-5 py-3 z-20">
+              <div>
+                <p className="font-bold text-lg">
+                  50% OFF
+                </p>
+
+                <p className="text-sm text-gray-500">
+                  Limited Time
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="mt-5 rounded-3xl bg-white border border-gray-100 shadow-[0_10px_30px_rgba(0,0,0,0.05)] p-5 md:p-6 lg:p-8">
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
+
+          {features.map((item, index) => (
+            <div
+              key={index}
+              className="
+                group
+                flex flex-col lg:flex-row
+                items-center
+                text-center lg:text-left
+                gap-3
+                transition-all duration-300
+                hover:-translate-y-1
+              "
+            >
+              <div
+                className="
+                  flex items-center justify-center
+                  w-12 h-12
+                  md:w-14 md:h-14
+                  rounded-full
+                  bg-white
+                  shadow-[0_1px_8px_rgba(15,23,42,0.15)]
+                  transition-all duration-300
+                  group-hover:shadow-lg
+                "
+              >
+                <FontAwesomeIcon
+                  icon={item.icon}
+                  className="text-lg md:text-xl lg:text-2xl"
+                />
+              </div>
+
+              <div>
+                <h3 className="text-xs md:text-sm lg:text-base font-semibold text-gray-900">
+                  {item.title}
+                </h3>
+
+                <p className="text-[10px] md:text-xs lg:text-sm text-gray-500">
+                  {item.subtitle}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Deals Section */}
+      <section className="mt-10">
+
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h2 className="text-3xl font-bold">
+              🔥 Deals Of The Week
+            </h2>
+            <p className="text-gray-500">
+              Grab these products before the offer ends.
+            </p>
+          </div>
         </div>
 
-        {/* Right Image */}
-        <div className="w-full lg:w-1/2 flex justify-center lg:justify-end items-center">
-          <img
-            src={Herobg}
-            alt="Fashion Hero"
-            className="
-      w-[110%]
-      max-w-[820px]
-      sm:max-w-[520px]
-      md:max-w-[500px]
-      lg:w-[110%]
-      lg:max-w-none
-      object-contain
-    "
-          />
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+
+          {products.map((product) => (
+            <div
+              key={product.id}
+              className="bg-white rounded-3xl p-4 shadow-sm hover:shadow-xl transition duration-300"
+            >
+              <div className="relative bg-gray-100 rounded-2xl overflow-hidden">
+
+                <span className="absolute top-3 left-3 bg-black text-white text-xs px-3 py-1 rounded-full z-10">
+                  {product.discount}
+                </span>
+
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-52 md:h-60 object-cover hover:scale-105 transition duration-300"
+                />
+              </div>
+
+              <h3 className="font-semibold mt-4 text-sm md:text-base">
+                {product.name}
+              </h3>
+
+              <div className="flex items-center gap-2 mt-2">
+                <span className="text-lg md:text-xl font-bold">
+                  ₹{product.price}
+                </span>
+
+                <span className="text-gray-400 line-through text-sm">
+                  ₹{product.oldPrice}
+                </span>
+              </div>
+
+              <button className="w-full mt-4 bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-800 transition">
+                Add To Cart
+              </button>
+            </div>
+          ))}
+
         </div>
 
+      </section>
+
+      {/* Footer */}
+      <div className="mt-20">
+        <Footer />
       </div>
-
-      <div className="w-full rounded-3xl p-4 shadow-[0_1px_7px_rgba(15,23,42,0.40)] lg:p-8">
-
-        <div className="grid grid-cols-4 gap-2 md:gap-4 lg:gap-6">
-
-          {/* Free Shipping */}
-          <div className="flex flex-col lg:flex-row items-center text-center lg:text-left gap-2 lg:gap-3">
-            <div className=" rounded-full p-2 md:p-3 lg:p-4 shadow-[0_1px_7px_rgba(15,23,42,0.40)]">
-              <FontAwesomeIcon
-                icon={faTruck}
-                className="text-lg  md:text-2xl lg:text-2xl"
-              />
-            </div>
-
-            <div>
-              <h2 className="text-[10px] md:text-sm lg:text-lg font-medium">
-                Free Shipping
-              </h2>
-
-              <p className="text-[8px] md:text-xs lg:text-sm text-gray-600">
-                On orders over 999
-              </p>
-            </div>
-          </div>
-
-          {/* Secure Payment */}
-          <div className="flex flex-col lg:flex-row items-center text-center lg:text-left gap-2 lg:gap-3">
-            <div className="bg-white rounded-full p-2 md:p-3 lg:p-4 shadow-[0_1px_7px_rgba(15,23,42,0.40)]">
-              <FontAwesomeIcon
-                icon={faShield}
-                className="text-lg md:text-2xl lg:text-2xl"
-              />
-            </div>
-
-            <div>
-              <h2 className="text-[10px] md:text-sm lg:text-lg font-medium">
-                Secure Payment
-              </h2>
-
-              <p className="text-[8px] md:text-xs lg:text-sm text-gray-600">
-                100% Secure
-              </p>
-            </div>
-          </div>
-
-          {/* Easy Returns */}
-          <div className="flex flex-col lg:flex-row items-center text-center lg:text-left gap-2 lg:gap-3">
-            <div className="bg-white rounded-full p-2 md:p-3 lg:p-4 shadow-[0_1px_7px_rgba(15,23,42,0.40)]">
-              <FontAwesomeIcon
-                icon={faRotate}
-                className="text-lg md:text-2xl lg:text-2xl"
-              />
-            </div>
-
-            <div>
-              <h2 className="text-[10px] md:text-sm lg:text-lg font-medium">
-                Easy Returns
-              </h2>
-
-              <p className="text-[8px] md:text-xs lg:text-sm text-gray-600">
-                30 Days Return
-              </p>
-            </div>
-          </div>
-
-          {/* 24/7 Support */}
-          <div className="flex flex-col lg:flex-row items-center text-center lg:text-left gap-2 lg:gap-3">
-            <div className="bg-white rounded-full p-2 md:p-3 lg:p-4 shadow-[0_1px_7px_rgba(15,23,42,0.40)]">
-              <FontAwesomeIcon
-                icon={faHeadset}
-                className="text-lg md:text-2xl lg:text-2xl"
-              />
-            </div>
-
-            <div>
-              <h2 className="text-[10px] md:text-sm lg:text-lg font-medium">
-                24/7 Support
-              </h2>
-
-              <p className="text-[8px] md:text-xs lg:text-sm text-gray-600">
-                We're Here
-              </p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
     </div>
-
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;

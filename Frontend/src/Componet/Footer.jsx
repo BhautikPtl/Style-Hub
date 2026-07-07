@@ -9,14 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink } from "react-router-dom";
 
 function Footer() {
-    const shopLinks = [
-        { path: "/men", label: "Men Fashion" },
-        { path: "/women", label: "Women Fashion" },
-        { path: "/accessories", label: "Accessories" },
-        { path: "/new-arrivals", label: "New Arrivals" },
-        { path: "/best-sellers", label: "Best Sellers" },
-    ];
-
+    
     const companyLinks = [
         { path: "/about", label: "About Us" },
         { path: "/contact", label: "Contact" },
@@ -24,7 +17,15 @@ function Footer() {
         { path: "/blog", label: "Blog" },
         { path: "/faqs", label: "FAQs" },
     ];
-    
+
+    const quickLinks = [
+        { path: "/", label: "Home" },
+        { path: "/shop", label: "Shop" },
+        { path: "/wishlist", label: "Wishlist" },
+        { path: "/cart", label: "Cart" },
+        { path: "/account", label: "My Account" },
+    ];
+
     return (
         <footer className="mt-20">
             <div className="overflow-hidden rounded-[32px] border border-gray-200 bg-white shadow-[0_8px_30px_rgba(0,0,0,0.05)]">

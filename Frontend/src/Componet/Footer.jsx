@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink } from "react-router-dom";
 
 function Footer() {
-    
+
     const companyLinks = [
         { path: "/about", label: "About Us" },
         { path: "/contact", label: "Contact" },
@@ -27,7 +27,7 @@ function Footer() {
     ];
 
     return (
-        <footer className="mt-20">
+        <footer className="mt-6">
             <div className="overflow-hidden rounded-[32px] border border-gray-200 bg-white shadow-[0_8px_30px_rgba(0,0,0,0.05)]">
 
                 {/* Top */}

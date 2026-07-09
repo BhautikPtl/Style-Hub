@@ -17,13 +17,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { NavLink } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-function Navbar() {
+function Navbar(props) {
+
+  const { isLogged, users } = props
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const Islogin = true;
-  const IsUser = false;
+  const Islogin = isLogged;
+
 
   const navItems = [
     { path: "/", label: "Home", icon: faHouse },
@@ -33,6 +37,16 @@ function Navbar() {
     { path: "/review", label: "Review", icon: faStar },
   ];
 
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    axios.post("http://localhost:5000/api/auth/logout", {}, { withCredentials: true })
+      .then((response) => {
+        navigate("/login");
+      })
+      .catch((error) => {
+        console.error("Error logging out:", error);
+      });
+  }
   return (
     <header className="sticky top-4 z-50">
       <div className="rounded-[32px] border border-gray-200 bg-white/80 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
@@ -98,6 +112,11 @@ function Navbar() {
                 {/* Cart */}
                 <NavLink
                   to="/cart"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "relative flex items-center gap-2 bg-black text-white px-4 py-3 rounded-xl shadow-lg"
+                      : "relative flex items-center gap-2 px-4 py-3 rounded-xl hover:bg-gray-100 transition"
+                  }
                   className="relative"
                 >
                   <FontAwesomeIcon
@@ -122,13 +141,13 @@ function Navbar() {
                   className="flex items-center gap-3 rounded-full px-5 py-2 cursor-pointer hover:bg-gray-100 transition"
                 >
                   <img
-                    src={IsUser ? logo : userPlaceholder}
+                    src={users.profilePicture ? logo : userPlaceholder}
                     alt="Profile"
                     className="w-8 h-8 rounded-full border"
                   />
 
                   <span className="hidden lg:block">
-                    Hello, Bhautik
+                    Hello, {users.name}
                   </span>
                 </button>
 
@@ -142,7 +161,12 @@ function Navbar() {
                       Profile
                     </NavLink>
 
-                    <button className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100">
+                    <button
+                      onClick={() => {
+                        handleLogout();
+                      }}
+                      className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100"
+                    >
                       <FontAwesomeIcon
                         icon={faArrowRightFromBracket}
                         className="mr-2"

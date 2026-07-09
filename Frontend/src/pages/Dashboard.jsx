@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../Componet/Navbar";
 import Herobg from "../assets/heroImg.png";
+import { useNavigate } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,8 +11,34 @@ import {
   faHeadset,
 } from "@fortawesome/free-solid-svg-icons";
 import Footer from "../Componet/Footer";
+import axios from "axios";
 
 function Dashboard() {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    CheckLogin();
+  }, []);
+
+  const CheckLogin = async () => {
+    try {
+      const { data } = await axios.get("http://localhost:5000/api/auth/me", {
+        withCredentials: true,
+      });
+
+      setUser(data.details);
+      setIsLoggedIn(true);
+      // setUser(data.details);
+
+    }
+    catch (error) {
+      console.error("Error checking login status:", error);
+    }
+  }
+
   const features = [
     {
       icon: faTruck,
@@ -73,7 +100,7 @@ function Dashboard() {
     <div className="min-h-screen bg-gray-50 px-4 md:px-6 py-6">
 
       {/* Navbar */}
-      <Navbar />
+      <Navbar isLogged={isLoggedIn} users={user} />
 
       {/* Hero Section */}
       <section className="mt-5 relative overflow-hidden rounded-[32px] bg-white border border-gray-100 shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
@@ -265,7 +292,9 @@ function Dashboard() {
                 </span>
               </div>
 
-              <button className="w-full mt-4 bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-800 transition">
+              <button 
+              onClick={() => isLoggedIn ? navigate('/cart') : navigate('/login')}
+              className="w-full mt-4 bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-800 transition">
                 Add To Cart
               </button>
             </div>

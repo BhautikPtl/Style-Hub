@@ -72,7 +72,7 @@ function Login() {
 
 
                     <h3 className="text-md text-center text-zinc-500">
-                        Don't have an account? <a href="#" className="underline text-black">Sign Up</a>
+                        Don't have an account? <a href="/register" className="underline text-black">Sign Up</a>
                     </h3>
                 </div>
             </div>

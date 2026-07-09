@@ -2,10 +2,46 @@ import React from 'react'
 import logo from '../assets/Logo.png'
 import { GoogleLogin } from '@react-oauth/google'
 import Register3d from './../3dImage/Register-3d.png'
+import { useState } from 'react'
+import axios from 'axios'
+import { data, useNavigate } from 'react-router-dom'
+
 
 function Register() {
-  return (
-    <div className="min-h-screen bg-zinc-100 px-4 py-8 flex items-center justify-center sm:px-6 lg:px-8">
+
+    const [Name, setName] = useState('');
+    const [Username, setUsername] = useState('');
+    const [Email, setEmail] = useState('');
+    const [Password, setPassword] = useState('');
+    const [message, setMessage] = useState('');
+
+    const navigate = useNavigate();
+
+
+
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        try {
+            const { data } = await axios.post('http://localhost:5000/api/auth/register', {
+                name: Name,
+                username: Username,
+                email: Email,
+                password: Password
+            }, { withCredentials: true });
+            if (data) {
+                navigate('/');
+            }
+
+        }
+        catch (error) {
+            console.error('Error registering user:', error);
+            setMessage(error.response.data.message || 'An error occurred during registration.');
+        }
+    }
+
+
+    return (
+        <div className="min-h-screen bg-zinc-100 px-4 py-8 flex items-center justify-center sm:px-6 lg:px-8">
             <div className="w-full max-w-6xl overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-black/10 lg:grid lg:grid-cols-2">
                 <div className="relative hidden overflow-hidden bg-gradient-to-br from-black via-zinc-900 to-zinc-800 px-10 text-white lg:flex xl:px-16">
                     <div className="relative z-10 flex flex-col justify-start pt-14 xl:pt-16">
@@ -37,29 +73,48 @@ function Register() {
                         </p>
                     </div>
 
-                    <form className="mt-8 flex w-full flex-col gap-4">
+                    <form
+                        onSubmit={handleRegister}
+                        className="mt-8 flex w-full flex-col gap-4">
+
                         <input
                             type="text"
-                            placeholder="Enter Name"
+                            placeholder="Enter Your Name"
+                            value={Name}
+                            onChange={(e) => setName(e.target.value)}
+                            className="w-full rounded-xl border border-zinc-300 px-4 py-3 text-slate-900 outline-none transition placeholder:text-zinc-400 focus:border-black focus:ring-4 focus:ring-zinc-200"
+                        />
+                        <input
+                            type="text"
+                            placeholder="Enter Your Username"
+                            value={Username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            className="w-full rounded-xl border border-zinc-300 px-4 py-3 text-slate-900 outline-none transition placeholder:text-zinc-400 focus:border-black focus:ring-4 focus:ring-zinc-200"
+                        />
+                        <input
+                            type="text"
+                            placeholder="Enter Your Email"
+                            value={Email}
+                            onChange={(e) => setEmail(e.target.value)}
                             className="w-full rounded-xl border border-zinc-300 px-4 py-3 text-slate-900 outline-none transition placeholder:text-zinc-400 focus:border-black focus:ring-4 focus:ring-zinc-200"
                         />
 
-                           <input
-                            type="text"
-                            placeholder="Enter Username"
-                            className="w-full rounded-xl border border-zinc-300 px-4 py-3 text-slate-900 outline-none transition placeholder:text-zinc-400 focus:border-black focus:ring-4 focus:ring-zinc-200"
-                        />
 
                         <input
                             type="password"
-                            placeholder="Enter Password"
+                            placeholder="Enter Your Password"
+                            value={Password}
+                            onChange={(e) => setPassword(e.target.value)}
                             className="w-full rounded-xl border border-zinc-300 px-4 py-3 text-slate-900 outline-none transition placeholder:text-zinc-400 focus:border-black focus:ring-4 focus:ring-zinc-200"
                         />
 
-                        <button className="mt-2 w-full cursor-pointer rounded-xl bg-black px-4 py-3 font-semibold text-white transition hover:bg-zinc-800 focus:outline-none focus:ring-4 focus:ring-zinc-300">
+                        <button
+                            className="mt-2 w-full cursor-pointer rounded-xl bg-black px-4 py-3 font-semibold text-white transition hover:bg-zinc-800 focus:outline-none focus:ring-4 focus:ring-zinc-300">
                             Register
                         </button>
                     </form>
+
+                    {message && <p className="mt-4 text-center text-sm text-red-500">{message}</p>}
 
                     <div className="mt-6 flex items-center justify-center gap-4 mb-4">
                         <span className="w-1/5 border-b border-zinc-300"></span>
@@ -80,7 +135,7 @@ function Register() {
                 </div>
             </div>
         </div>
-  )
+    )
 }
 
-export default Register
+export default Register;

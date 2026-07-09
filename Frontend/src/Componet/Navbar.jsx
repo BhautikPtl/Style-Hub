@@ -114,10 +114,10 @@ function Navbar(props) {
                   to="/cart"
                   className={({ isActive }) =>
                     isActive
-                      ? "relative flex items-center gap-2 bg-black text-white px-4 py-3 rounded-xl shadow-lg"
-                      : "relative flex items-center gap-2 px-4 py-3 rounded-xl hover:bg-gray-100 transition"
+                      ? "relative flex items-center gap-2 bg-black p-2 text-white rounded-xl shadow-lg"
+                      : "relative flex items-center gap-2 rounded-xl hover:bg-gray-100 transition"
                   }
-                  className="relative"
+
                 >
                   <FontAwesomeIcon
                     icon={faCartShopping}

@@ -2,12 +2,27 @@ import { useState } from "react";
 import Herobg from "../assets/heroImg.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
-function FilterProduct() {
+
+function FilterProduct(props) {
     const [category, setCategory] = useState("all");
     const [price, setPrice] = useState(100);
     const [currentPage, setCurrentPage] = useState(1);
     const [isFilter, setIsFilter] = useState(false);
+
+    const navigate = useNavigate();
+    const isLoggedIn = props.isLogged;
+
+    const handleAddToCart = () => {
+        console.log("isLoggedIn:", isLoggedIn);
+        if (isLoggedIn) {
+            navigate("/cart");
+        }
+        else {
+            navigate("/login");
+        }
+    };
 
     const itemsPerPage = 4;
 
@@ -312,7 +327,9 @@ function FilterProduct() {
                                 </span>
                             </div>
 
-                            <button className="w-full mt-4 bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-800 transition">
+                            <button
+                                onClick={() => handleAddToCart()}
+                                className="w-full mt-4 bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-800 transition">
                                 Add To Cart
                             </button>
                         </div>

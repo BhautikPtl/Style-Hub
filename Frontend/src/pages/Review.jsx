@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 function Review() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState([]);
   const navigate = useNavigate();
 
@@ -21,13 +22,37 @@ function Review() {
 
       setUser(data.details);
       setIsLoggedIn(true);
-      // setUser(data.details);
+      setLoading(false);
 
     }
     catch (error) {
       console.error("Error checking login status:", error);
+      setLoading(false);
     }
   }
+
+
+  {/* loading screen */ }
+  if (loading) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/10 backdrop-blur-lg">
+        <div className="bg-white/10 backdrop-blur-xl rounded-3xl px-10 py-8 border border-white">
+          <div className="flex flex-col items-center gap-4">
+            <div className="w-14 h-14 border-[3px] border-gray-200 border-t-black rounded-full animate-spin"></div>
+
+            <h2 className="text-lg font-semibold text-gray-900">
+              Loading...
+            </h2>
+
+            <p className="text-sm text-gray-500">
+              Please wait a moment
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
 
   return (
     <div className="min-h-screen px-6 py-6">

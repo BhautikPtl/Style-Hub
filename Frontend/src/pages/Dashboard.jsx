@@ -16,6 +16,7 @@ import axios from "axios";
 function Dashboard() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState([]);
   const navigate = useNavigate();
 
@@ -31,13 +32,24 @@ function Dashboard() {
 
       setUser(data.details);
       setIsLoggedIn(true);
+      setLoading(false);
       // setUser(data.details);
-
     }
     catch (error) {
       console.error("Error checking login status:", error);
+      setLoading(false);
     }
   }
+
+  const handleAddToCart = () => {
+    console.log("isLoggedIn:", isLoggedIn);
+    if (isLoggedIn) {
+      navigate("/cart");
+    }
+    else {
+      navigate("/login");
+    }
+  };
 
   const features = [
     {
@@ -96,6 +108,27 @@ function Dashboard() {
       image: Herobg,
     },
   ];
+
+   {/* loading screen */}
+  if (loading) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/10 backdrop-blur-xl">
+        <div className="bg-white/10 backdrop-blur-xl rounded-3xl px-10 py-8 border border-white">
+          <div className="flex flex-col items-center gap-4">
+            <div className="w-14 h-14 border-[3px] border-gray-200 border-t-black rounded-full animate-spin"></div>
+
+            <h2 className="text-lg font-semibold text-gray-900">
+              Loading...
+            </h2>
+
+            <p className="text-sm text-gray-500">
+              Please wait a moment
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen bg-gray-50 px-4 md:px-6 py-6">
 
@@ -292,9 +325,9 @@ function Dashboard() {
                 </span>
               </div>
 
-              <button 
-              onClick={() => isLoggedIn ? navigate('/cart') : navigate('/login')}
-              className="w-full mt-4 bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-800 transition">
+              <button
+                onClick={() => handleAddToCart()}
+                className="w-full mt-4 bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-800 transition">
                 Add To Cart
               </button>
             </div>

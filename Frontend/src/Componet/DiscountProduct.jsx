@@ -1,9 +1,22 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Herobg from "../assets/heroImg.png";
 import DiscountTag from '../3dImage/DiscountTag.png';
+import { useNavigate } from "react-router-dom";
 
-function DiscountProduct() {
+function DiscountProduct(props) {
 
+    const navigate = useNavigate();
+    const isLoggedIn = props.isLogged;
+
+    const handleAddToCart = () => {
+        console.log("isLoggedIn:", isLoggedIn);
+
+        if (isLoggedIn) {
+            navigate("/cart");
+        } else {
+            navigate("/login");
+        }
+    };
 
     const products = [
         {
@@ -130,7 +143,9 @@ function DiscountProduct() {
                                 </span>
                             </div>
 
-                            <button className="w-full mt-4 bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-800 transition">
+                            <button
+                                onClick={() => isLoggedIn ? navigate('/cart') : navigate('/login')}
+                                className="w-full mt-4 bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-800 transition">
                                 Add To Cart
                             </button>
                         </div>

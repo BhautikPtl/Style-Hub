@@ -8,6 +8,7 @@ dotenv.config();
 const db = require('./Modules/db');
 
 const authRoutes = require('./Routes/authRoutes');
+const userRoutes = require('./Routes/userRoutes');
 
 
 
@@ -25,6 +26,7 @@ app.use(
 
 
 app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);

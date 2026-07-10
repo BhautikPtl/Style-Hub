@@ -1,9 +1,38 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import logo from '../assets/Logo.png'
 import { GoogleLogin } from '@react-oauth/google'
 import Login3d from './../3dImage/Login-3d.png'
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
+
+    const [Username, setUsername] = React.useState('');
+    const [Password, setPassword] = React.useState('');
+    const [message, setMessage] = React.useState('');
+
+    const navigate = useNavigate();
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        try {
+            const { data } = await axios.post('http://localhost:5000/api/auth/login', {
+                username: Username,
+                password: Password
+            }
+                , { withCredentials: true });
+            if (data.user.role === 'admin') {
+                navigate('/admindashboard');
+            }
+            else {
+                navigate('/');
+            }
+        }
+        catch (error) {
+            console.error('Error logging in user:', error);
+            setMessage(error.response.data.message || 'An error occurred during login.');
+        }
+    }
     return (
         <div className="min-h-screen px-4 py-8 flex items-center justify-center sm:px-6 lg:px-8">
             <div className="w-full max-w-6xl overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-black/10 lg:grid lg:grid-cols-2">
@@ -37,18 +66,26 @@ function Login() {
                         </p>
                     </div>
 
-                    <form className="mt-8 flex w-full flex-col gap-4">
+                    <form
+                        onSubmit={handleLogin}
+                        className="mt-8 flex w-full flex-col gap-4">
                         <input
                             type="text"
                             placeholder="Enter Username"
+                            value={Username}
+                            onChange={(e) => setUsername(e.target.value)}
                             className="w-full rounded-xl border border-zinc-300 px-4 py-3 text-slate-900 outline-none transition placeholder:text-zinc-400 focus:border-black focus:ring-4 focus:ring-zinc-200"
                         />
 
                         <input
                             type="password"
                             placeholder="Enter Password"
+                            value={Password}
+                            onChange={(e) => setPassword(e.target.value)}
                             className="w-full rounded-xl border border-zinc-300 px-4 py-3 text-slate-900 outline-none transition placeholder:text-zinc-400 focus:border-black focus:ring-4 focus:ring-zinc-200"
                         />
+
+                        {message && <p className="text-red-500 text-sm">{message}</p>}
 
                         <a href="#" className="text-md underline text-right  text-black">
                             Forgot your password?

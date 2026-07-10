@@ -19,10 +19,12 @@ import {
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch , useSelector } from "react-redux";
 
 function Navbar(props) {
 
   const { isLogged, users } = props
+  
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 

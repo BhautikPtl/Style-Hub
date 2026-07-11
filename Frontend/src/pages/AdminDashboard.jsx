@@ -1,8 +1,12 @@
 import React from 'react'
+import AdminNavbar from '../Componet/AdminNavbar'
 
 function AdminDashboard() {
+  
   return (
-    <div>AdminDashboard</div>
+    <div>
+      <AdminNavbar />
+    </div>
   )
 }
 

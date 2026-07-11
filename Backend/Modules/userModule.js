@@ -30,9 +30,9 @@ const userSchema = new mongoose.Schema(
     },
 
     authProvider: {
-      type: String,
+      type: [String],
       enum: ["local", "google"],
-      default: "local",
+      default: ["local"],
     },
     role: {
       type: String,
@@ -62,6 +62,12 @@ const userSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Product",
+      },
+    ],
+    orders: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Order",
       },
     ],
   },

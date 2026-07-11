@@ -75,7 +75,8 @@ function Review() {
         </div>
       ) : (
         <div className="mt-6">
-          <h1 className="text-2xl font-bold mb-4">Please log in to view your reviews.</h1>
+          <h1 className="text-2xl font-bold mb-4">Please Log In</h1>
+          <p className="text-gray-600">You need to be logged in to view your review.</p>
         </div>
       )
       }

@@ -39,6 +39,29 @@ function Register() {
         }
     }
 
+    const handleGoogleLoginSuccess = async (credential) => {
+        try {
+            const { data } = await axios.post('http://localhost:5000/api/auth/googlelogin', {
+                credential
+            }, { withCredentials: true });
+
+            if (data.user.role === 'admin') {
+                navigate('/admindashboard');
+            }
+            else {
+                navigate('/');
+            }
+        } catch (error) {
+            console.error('Error logging in with Google:', error);
+            setMessage(error.response.data.message || 'An error occurred during Google login.');
+        }
+    };
+
+    const handleGoogleLoginFailure = (error) => {
+        console.error('Google login failed:', error);
+        setMessage('Google login failed. Please try again.');
+    };
+
 
     return (
         <div className="min-h-screen bg-zinc-100 px-4 py-8 flex items-center justify-center sm:px-6 lg:px-8">
@@ -124,13 +147,17 @@ function Register() {
 
                     <div className="border-2 border-black rounded-3xl inline-block mb-4">
                         <GoogleLogin
+                            onSuccess={(credentialResponse) => {
+                                handleGoogleLoginSuccess(credentialResponse.credential);
+                            }}
+                            onError={handleGoogleLoginFailure}
                             shape="circle"
                             text="signup_with" />
                     </div>
 
 
                     <h3 className="text-md text-center text-zinc-500">
-                        Already have an account? <a href="#" className="underline text-black">Login</a>
+                        Already have an account? <a href="/login" className="underline text-black">Login</a>
                     </h3>
                 </div>
             </div>

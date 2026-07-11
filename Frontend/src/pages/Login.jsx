@@ -33,6 +33,30 @@ function Login() {
             setMessage(error.response.data.message || 'An error occurred during login.');
         }
     }
+
+    const handleGoogleLoginSuccess = async (credential) => {
+        try {
+            const { data } = await axios.post('http://localhost:5000/api/auth/googlelogin', {
+                credential
+            }, { withCredentials: true });
+
+            if (data.user.role === 'admin') {
+                navigate('/admindashboard');
+            }
+            else {
+                navigate('/');
+            }
+        } catch (error) {
+            console.error('Error logging in with Google:', error);
+            setMessage(error.response.data.message || 'An error occurred during Google login.');
+        }
+    };
+
+    const handleGoogleLoginFailure = (error) => {
+        console.error('Google login failed:', error);
+        setMessage('Google login failed. Please try again.');
+    };
+
     return (
         <div className="min-h-screen px-4 py-8 flex items-center justify-center sm:px-6 lg:px-8">
             <div className="w-full max-w-6xl overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-black/10 lg:grid lg:grid-cols-2">
@@ -87,7 +111,7 @@ function Login() {
 
                         {message && <p className="text-red-500 text-sm">{message}</p>}
 
-                        <a href="#" className="text-md underline text-right  text-black">
+                        <a href="/forgetpassword" className="text-md underline text-right  text-black">
                             Forgot your password?
                         </a>
 
@@ -104,6 +128,10 @@ function Login() {
 
                     <div className="border-2 border-black rounded-3xl inline-block mb-4">
                         <GoogleLogin
+                            onSuccess={(credentialResponse) => {
+                                handleGoogleLoginSuccess(credentialResponse.credential);
+                            }}
+                            onError={handleGoogleLoginFailure}
                             shape="circle" />
                     </div>
 

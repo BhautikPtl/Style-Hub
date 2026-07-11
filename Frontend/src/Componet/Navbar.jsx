@@ -19,12 +19,12 @@ import {
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useDispatch , useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function Navbar(props) {
 
   const { isLogged, users } = props
-  
+
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -38,6 +38,7 @@ function Navbar(props) {
     { path: "/wishlist", label: "Wishlist", icon: faHeart },
     { path: "/review", label: "Review", icon: faStar },
   ];
+
 
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -143,9 +144,9 @@ function Navbar(props) {
                   className="flex items-center gap-3 rounded-full px-5 py-2 cursor-pointer hover:bg-gray-100 transition"
                 >
                   <img
-                    src={users.profilePicture ? logo : userPlaceholder}
+                    src={users?.profilePicture || userPlaceholder}
                     alt="Profile"
-                    className="w-8 h-8 rounded-full border"
+                    className="w-8 h-8 rounded-full border object-cover"
                   />
 
                   <span className="hidden lg:block">

@@ -56,7 +56,7 @@ function Review() {
 
   return (
     <div className="min-h-screen px-6 py-6">
-      <Navbar isLogged={isLoggedIn} users={user} />
+      <Navbar isLogged={isLoggedIn} user={user} />
       {isLoggedIn ? (
         <div className="mt-6">
           <h1 className="text-2xl font-bold mb-4">Your Reviews</h1>

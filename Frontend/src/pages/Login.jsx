@@ -48,7 +48,12 @@ function Login() {
             }
         } catch (error) {
             console.error('Error logging in with Google:', error);
-            setMessage(error.response.data.message || 'An error occurred during Google login.');
+
+            setMessage(
+                error?.response?.data?.message ||
+                error.message ||
+                'An error occurred during Google login.'
+            );
         }
     };
 

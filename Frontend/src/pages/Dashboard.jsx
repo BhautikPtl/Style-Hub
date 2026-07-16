@@ -19,6 +19,7 @@ function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState([]);
   const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     CheckLogin();
@@ -40,16 +41,6 @@ function Dashboard() {
       setLoading(false);
     }
   }
-
-  const handleAddToCart = () => {
-    console.log("isLoggedIn:", isLoggedIn);
-    if (isLoggedIn) {
-      navigate("/cart");
-    }
-    else {
-      navigate("/login");
-    }
-  };
 
   const features = [
     {
@@ -74,42 +65,79 @@ function Dashboard() {
     },
   ];
 
-  const products = [
-    {
-      id: 1,
-      name: "Premium Hoodie",
-      price: 999,
-      oldPrice: 1999,
-      discount: "50% OFF",
-      image: Herobg,
-    },
-    {
-      id: 2,
-      name: "Casual Shirt",
-      price: 799,
-      oldPrice: 1399,
-      discount: "40% OFF",
-      image: Herobg,
-    },
-    {
-      id: 3,
-      name: "Denim Jacket",
-      price: 1499,
-      oldPrice: 2299,
-      discount: "35% OFF",
-      image: Herobg,
-    },
-    {
-      id: 4,
-      name: "Oversized T-Shirt",
-      price: 599,
-      oldPrice: 1199,
-      discount: "50% OFF",
-      image: Herobg,
-    },
-  ];
+  const handleAddToCart = async (productId) => {
+    if (isLoggedIn) {
+      try {
 
-   {/* loading screen */}
+        const response = await axios.post(
+          `http://localhost:5000/api/product/add-to-cart/${productId}`,
+          {},
+          {
+            withCredentials: true,
+          }
+        );
+
+        await CheckLogin(); // Refresh user data after adding to cart
+
+      } catch (error) {
+        console.log("Response Error:", error.response?.data);
+        console.log("Status:", error.response?.status);
+        console.log(error);
+      }
+    } else {
+      navigate('/login');
+    }
+  };
+
+  const isProductInCart = (productId) => {
+    return user?.cart?.some(
+      (item) => item.productId?._id === productId
+    );
+  };
+
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/api/product/get-products",
+        {
+          withCredentials: true,
+        }
+      );
+
+      setProducts(response.data.products);
+    } catch (error) {
+      console.log(error);
+
+      setMessage(
+        error?.response?.data?.message ||
+        error.message ||
+        "Something went wrong"
+      );
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+
+  const discountedProducts = products.filter((product) => product.productDiscount >= 50);
+
+  const itemsPerPage = 4;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = Math.ceil(
+    discountedProducts.length / itemsPerPage
+  );
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+
+  const currentProducts = discountedProducts.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
+
+  {/* loading screen */ }
   if (loading) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/10 backdrop-blur-xl">
@@ -133,7 +161,7 @@ function Dashboard() {
     <div className="min-h-screen bg-gray-50 px-4 md:px-6 py-6">
 
       {/* Navbar */}
-      <Navbar isLogged={isLoggedIn} users={user} />
+      <Navbar isLogged={isLoggedIn} user={user} />
 
       {/* Hero Section */}
       <section className="mt-5 relative overflow-hidden rounded-[32px] bg-white border border-gray-100 shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
@@ -228,7 +256,7 @@ function Dashboard() {
       </section>
 
       {/* Features Section */}
-      <section className="mt-5 rounded-3xl bg-white border border-gray-100 shadow-[0_10px_30px_rgba(0,0,0,0.05)] p-5 md:p-6 lg:p-8">
+      <section className="mt-5 flex justify-center rounded-3xl bg-white border border-gray-100 shadow-[0_10px_30px_rgba(0,0,0,0.05)] p-5 md:p-6 lg:p-8">
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
 
@@ -291,49 +319,88 @@ function Dashboard() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+        <div className="grid justify-center grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
 
-          {products.map((product) => (
+          {currentProducts.map((product) => (
             <div
-              key={product.id}
-              className="bg-white rounded-3xl p-4 shadow-sm hover:shadow-xl transition duration-300"
+              key={product._id}
+              className="bg-white  rounded-3xl p-4 shadow-sm hover:shadow-xl transition duration-300"
             >
               <div className="relative bg-gray-100 rounded-2xl overflow-hidden">
 
                 <span className="absolute top-3 left-3 bg-black text-white text-xs px-3 py-1 rounded-full z-10">
-                  {product.discount}
+                  {product.productDiscount}% OFF
                 </span>
 
                 <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-52 md:h-60 object-cover hover:scale-105 transition duration-300"
+                  src={`http://localhost:5000/uploads/${product.productImage}`}
+                  alt={product.productName}
+                  className="w-full h-80 object-cover object-top hover:scale-105 transition duration-300"
                 />
               </div>
 
               <h3 className="font-semibold mt-4 text-sm md:text-base">
-                {product.name}
+                {product.productName}
               </h3>
 
               <div className="flex items-center gap-2 mt-2">
                 <span className="text-lg md:text-xl font-bold">
-                  ₹{product.price}
+                  ₹{Math.round(product.productPrice * (product.productDiscount / 100))}
                 </span>
 
                 <span className="text-gray-400 line-through text-sm">
-                  ₹{product.oldPrice}
+                  ₹{product.productPrice}
                 </span>
               </div>
 
               <button
-                onClick={() => handleAddToCart()}
+                onClick={() => {
+                  if (isProductInCart(product._id)) {
+                    navigate("/cart");
+                  } else {
+                    handleAddToCart(product._id);
+                  }
+                }
+                }
                 className="w-full mt-4 bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-800 transition">
-                Add To Cart
+                {isProductInCart(product._id) ? "Go to Cart" : "Add To Cart"}
               </button>
             </div>
           ))}
 
         </div>
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="flex items-center justify-center gap-3 mt-8">
+            <button
+              onClick={() =>
+                setCurrentPage((prev) =>
+                  Math.max(prev - 1, 1)
+                )
+              }
+              disabled={currentPage === 1}
+              className="px-4 py-2 bg-gray-200 rounded-lg disabled:opacity-50"
+            >
+              Previous
+            </button>
+
+            <div className="px-4 py-2 bg-gray-100 rounded-lg">
+              {currentPage} / {totalPages}
+            </div>
+
+            <button
+              onClick={() =>
+                setCurrentPage((prev) =>
+                  Math.min(prev + 1, totalPages)
+                )
+              }
+              disabled={currentPage === totalPages}
+              className="px-4 py-2 bg-gray-200 rounded-lg disabled:opacity-50"
+            >
+              Next
+            </button>
+          </div>
+        )}
 
       </section>
 

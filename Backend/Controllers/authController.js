@@ -155,9 +155,11 @@ const googleLogin = async (req, res) => {
             user.authProvider.push("google");
         }
 
-        if (!user.profilePicture) {
+        if (user) {
             user.profilePicture = picture;
+            await user.save();
         }
+
 
         await user.save();
 
@@ -223,12 +225,11 @@ const forgotPassword = async (req, res) => {
             },
         });
 
-        console.log("Sending email to:", user.email);
         await transporter.sendMail({
             from: process.env.EMAIL_USER,
             to: user.email,
             subject: "Reset Your Password",
-            html:  `
+            html: `
                     <div style="max-width:650px;margin:40px auto;font-family:Segoe UI,Arial,sans-serif;background:#ffffff;border:1px solid #e5e7eb;border-radius:20px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.08);">
 
                     <div style="padding:30px 20px;text-align:center;background:#ffffff;border-bottom:1px solid #f1f1f1;">
@@ -329,20 +330,20 @@ const forgotPassword = async (req, res) => {
 
                     </div>
                     `
-              
-            
+
+
         });
 
-    res.status(200).json({
-        message: "Password reset email sent",
-    });
-} catch (error) {
-    console.log(error);
+        res.status(200).json({
+            message: "Password reset email sent",
+        });
+    } catch (error) {
+        console.log(error);
 
-    res.status(500).json({
-        message: "Something went wrong",
-    });
-}
+        res.status(500).json({
+            message: "Something went wrong",
+        });
+    }
 };
 
 const resetPassword = async (req, res) => {
@@ -394,7 +395,7 @@ const logout = (req, res) => {
 }
 
 const me = async (req, res) => {
-    const user = await userModule.findById(req.userId).select("-password");
+    const user = await userModule.findById(req.userId).select("-password").populate("cart.productId");
     res.status(200).json({ details: user });
 }
 

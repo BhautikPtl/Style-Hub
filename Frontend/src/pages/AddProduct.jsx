@@ -40,6 +40,7 @@ function AddProduct() {
             setProductCategory('');
             setProductDiscount('');
             setProductImage(null);
+            setWeekDials('');
 
         } catch (error) {
             console.log("ERROR =>", error);
@@ -164,6 +165,7 @@ function AddProduct() {
                                 className="w-full border border-gray-300 rounded-xl px-4 py-3 resize-none"
                             />
                         </div>
+                       
 
                         {/* Message */}
                         {message && (

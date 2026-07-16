@@ -23,7 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 function Navbar(props) {
 
-  const { isLogged, users } = props
+  const { isLogged, user } = props
 
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -50,6 +50,7 @@ function Navbar(props) {
         console.error("Error logging out:", error);
       });
   }
+
   return (
     <header className="sticky top-4 z-50">
       <div className="rounded-[32px] border border-gray-200 bg-white/80 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
@@ -117,7 +118,7 @@ function Navbar(props) {
                   to="/cart"
                   className={({ isActive }) =>
                     isActive
-                      ? "relative flex items-center gap-2 bg-black p-2 text-white rounded-xl shadow-lg"
+                      ? "relative flex items-center gap-2  text-black rounded-xl"
                       : "relative flex items-center gap-2 rounded-xl hover:bg-gray-100 transition"
                   }
 
@@ -128,7 +129,7 @@ function Navbar(props) {
                   />
 
                   <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-black text-white text-[10px] font-bold">
-                    0
+                    {user?.cart?.length || 0}
                   </span>
                 </NavLink>
 
@@ -144,13 +145,13 @@ function Navbar(props) {
                   className="flex items-center gap-3 rounded-full px-5 py-2 cursor-pointer hover:bg-gray-100 transition"
                 >
                   <img
-                    src={users?.profilePicture || userPlaceholder}
+                    src={user?.profilePicture || userPlaceholder}
                     alt="Profile"
                     className="w-8 h-8 rounded-full border object-cover"
                   />
 
                   <span className="hidden lg:block">
-                    Hello, {users.name}
+                    Hello, {user.name}
                   </span>
                 </button>
 
@@ -159,7 +160,11 @@ function Navbar(props) {
                   <div className="absolute right-4 top-[78px] w-44 rounded-2xl border border-gray-100 bg-white shadow-xl p-2">
                     <NavLink
                       to="/profile"
-                      className="block px-3 py-2 rounded-lg hover:bg-gray-100"
+                      className={({ isActive }) =>
+                        isActive
+                          ? "block px-3 py-2 rounded-lg bg-black text-white"
+                          : "block px-3 py-2 rounded-lg hover:bg-gray-100"
+                      }
                     >
                       Profile
                     </NavLink>

@@ -44,6 +44,16 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    addresses: [
+       {
+       fullName: String, 
+       mobile: String, 
+       addressLine1: String, 
+       city: String, 
+       state: String, 
+       pincode: String, 
+       country: String, } 
+      ],
 
     cart: [
       {

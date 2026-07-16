@@ -15,12 +15,17 @@ const authRoutes = require('./Routes/authRoutes');
 const userRoutes = require('./Routes/userRoutes');
 const productRoutes = require('./Routes/productroute');
 
-
-app.use(helmet({
+app.use(
+  helmet({
     crossOriginOpenerPolicy: {
-        policy: "same-origin-allow-popups",
+      policy: "same-origin-allow-popups",
     },
-}));
+    crossOriginResourcePolicy: {
+      policy: "cross-origin",
+    },
+  })
+);
+
 
 
 app.use(

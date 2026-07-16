@@ -56,7 +56,7 @@ function Orders() {
 
   return (
     <div className="min-h-screen px-6 py-6">
-      <Navbar isLogged={isLoggedIn} users={user} />
+      <Navbar isLogged={isLoggedIn} user={user} />
 
       {
         isLoggedIn ? (

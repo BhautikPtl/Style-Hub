@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { oderHistory } = require("../Controllers/userController");
+const { AddAddress } = require("../Controllers/userController");
 const { IsloggedIn } = require("../middleware/authMiddleware");
+
+
+router.post("/add-address", IsloggedIn, AddAddress);
 
 
 

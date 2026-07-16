@@ -14,6 +14,7 @@ import ForgetPassword from './pages/ForgetPassword';
 import SetPassword from './pages/SetPassword';
 import AddProduct from './pages/AddProduct';
 import ShowProduct from './pages/ShowProduct';
+import Profile from './pages/Profile'
 // import EditProduct from './pages/EditProduct';
 
 
@@ -45,6 +46,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/forgetpassword" element={<ForgetPassword />} />
         <Route path="/set-password/:token" element={<SetPassword />} />
+        <Route path="/profile" element={<Profile />}/>
         <Route path="/shop" element={<Shop />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/wishlist" element={<Wishlist />} />

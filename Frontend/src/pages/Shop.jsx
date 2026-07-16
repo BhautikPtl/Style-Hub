@@ -57,7 +57,7 @@ if (loading) {
 
   return (
     <div className="min-h-screen px-4 md:px-6 py-6 bg-gray-50">
-      <Navbar isLogged={isLoggedIn} users={user} />
+      <Navbar isLogged={isLoggedIn} user={user}  />
 
       {/* Hero Section */}
       <div className="relative overflow-hidden rounded-3xl mt-5 bg-white shadow-[0_1px_10px_rgba(0,0,0,0.08)]">
@@ -93,13 +93,13 @@ if (loading) {
       <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mt-6"></div>
 
       {/* Filter Product Section */}
-      <FilterProduct isLogged={isLoggedIn} />
+      <FilterProduct isLogged={isLoggedIn} user={user} setUser={setUser} />
 
       {/* Divider */}
       <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mt-6"></div>
 
       {/*Discount Product Section */}
-      <DiscountProduct isLogged={isLoggedIn}/>
+      <DiscountProduct isLogged={isLoggedIn} user={user} setUser={setUser} />
 
       {/* Divider */}
       <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mt-6"></div>

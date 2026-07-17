@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../Componet/Navbar";
 import Herobg from "../assets/heroImg.png";
 import Footer from "../Componet/Footer";
@@ -8,7 +8,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function Shop() {
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState([]);
@@ -27,37 +26,34 @@ function Shop() {
       setUser(data.details);
       setIsLoggedIn(true);
       setLoading(false);
-    }
-    catch (error) {
+    } catch (error) {
       console.error("Error checking login status:", error);
       setLoading(false);
     }
+  };
+
+  {
+    /* loading screen */
   }
+  if (loading) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/10 backdrop-blur-lg">
+        <div className="bg-white/10 backdrop-blur-xl rounded-3xl px-10 py-8 border border-white">
+          <div className="flex flex-col items-center gap-4">
+            <div className="w-14 h-14 border-[3px] border-gray-200 border-t-black rounded-full animate-spin"></div>
 
-  {/* loading screen */}
-if (loading) {
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/10 backdrop-blur-lg">
-      <div className="bg-white/10 backdrop-blur-xl rounded-3xl px-10 py-8 border border-white">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-14 h-14 border-[3px] border-gray-200 border-t-black rounded-full animate-spin"></div>
+            <h2 className="text-lg font-semibold text-gray-900">Loading...</h2>
 
-          <h2 className="text-lg font-semibold text-gray-900">
-            Loading...
-          </h2>
-
-          <p className="text-sm text-gray-500">
-            Please wait a moment
-          </p>
+            <p className="text-sm text-gray-500">Please wait a moment</p>
+          </div>
         </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
   return (
     <div className="min-h-screen px-4 md:px-6 py-6 bg-gray-50">
-      <Navbar isLogged={isLoggedIn} user={user}  />
+      <Navbar isLogged={isLoggedIn} user={user} />
 
       {/* Hero Section */}
       <div className="relative overflow-hidden rounded-3xl mt-5 bg-white shadow-[0_1px_10px_rgba(0,0,0,0.08)]">

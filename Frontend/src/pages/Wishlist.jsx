@@ -1,4 +1,4 @@
-import Navbar from '../Componet/Navbar'
+import Navbar from "../Componet/Navbar";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -22,15 +22,15 @@ function Wishlist() {
       setUser(data.details);
       setIsLoggedIn(true);
       setLoading(false);
-
-    }
-    catch (error) {
+    } catch (error) {
       console.error("Error checking login status:", error);
       setLoading(false);
     }
-  }
+  };
 
-  {/* loading screen */ }
+  {
+    /* loading screen */
+  }
   if (loading) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/10 backdrop-blur-lg">
@@ -38,19 +38,14 @@ function Wishlist() {
           <div className="flex flex-col items-center gap-4">
             <div className="w-14 h-14 border-[3px] border-gray-200 border-t-black rounded-full animate-spin"></div>
 
-            <h2 className="text-lg font-semibold text-gray-900">
-              Loading...
-            </h2>
+            <h2 className="text-lg font-semibold text-gray-900">Loading...</h2>
 
-            <p className="text-sm text-gray-500">
-              Please wait a moment
-            </p>
+            <p className="text-sm text-gray-500">Please wait a moment</p>
           </div>
         </div>
       </div>
     );
   }
-
 
   return (
     <div className="min-h-screen px-6 py-6">
@@ -75,12 +70,13 @@ function Wishlist() {
       ) : (
         <div className="mt-6">
           <h1 className="text-2xl font-bold mb-4">Please Log In</h1>
-          <p className="text-gray-600">You need to be logged in to view your wishlist.</p>
+          <p className="text-gray-600">
+            You need to be logged in to view your wishlist.
+          </p>
         </div>
-      )
-      }
+      )}
     </div>
-  )
+  );
 }
 
-export default Wishlist
+export default Wishlist;

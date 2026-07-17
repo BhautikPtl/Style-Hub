@@ -45,15 +45,16 @@ const userSchema = new mongoose.Schema(
       default: "",
     },
     addresses: [
-       {
-       fullName: String, 
-       mobile: String, 
-       addressLine1: String, 
-       city: String, 
-       state: String, 
-       pincode: String, 
-       country: String, } 
-      ],
+      {
+        fullName: String,
+        mobile: String,
+        addressLine1: String,
+        city: String,
+        state: String,
+        pincode: String,
+        country: String,
+      },
+    ],
 
     cart: [
       {
@@ -81,8 +82,7 @@ const userSchema = new mongoose.Schema(
       },
     ],
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 module.exports = mongoose.model("User", userSchema);
-

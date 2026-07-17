@@ -14,7 +14,6 @@ import Footer from "../Componet/Footer";
 import axios from "axios";
 
 function Dashboard() {
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState([]);
@@ -35,12 +34,11 @@ function Dashboard() {
       setIsLoggedIn(true);
       setLoading(false);
       // setUser(data.details);
-    }
-    catch (error) {
+    } catch (error) {
       console.error("Error checking login status:", error);
       setLoading(false);
     }
-  }
+  };
 
   const features = [
     {
@@ -68,31 +66,27 @@ function Dashboard() {
   const handleAddToCart = async (productId) => {
     if (isLoggedIn) {
       try {
-
         const response = await axios.post(
           `http://localhost:5000/api/product/add-to-cart/${productId}`,
           {},
           {
             withCredentials: true,
-          }
+          },
         );
 
         await CheckLogin(); // Refresh user data after adding to cart
-
       } catch (error) {
         console.log("Response Error:", error.response?.data);
         console.log("Status:", error.response?.status);
         console.log(error);
       }
     } else {
-      navigate('/login');
+      navigate("/login");
     }
   };
 
   const isProductInCart = (productId) => {
-    return user?.cart?.some(
-      (item) => item.productId?._id === productId
-    );
+    return user?.cart?.some((item) => item.productId?._id === productId);
   };
 
   const fetchProducts = async () => {
@@ -101,7 +95,7 @@ function Dashboard() {
         "http://localhost:5000/api/product/get-products",
         {
           withCredentials: true,
-        }
+        },
       );
 
       setProducts(response.data.products);
@@ -110,8 +104,8 @@ function Dashboard() {
 
       setMessage(
         error?.response?.data?.message ||
-        error.message ||
-        "Something went wrong"
+          error.message ||
+          "Something went wrong",
       );
     }
   };
@@ -120,24 +114,25 @@ function Dashboard() {
     fetchProducts();
   }, []);
 
-
-  const discountedProducts = products.filter((product) => product.productDiscount >= 50);
+  const discountedProducts = products.filter(
+    (product) => product.productDiscount >= 50,
+  );
 
   const itemsPerPage = 4;
   const [currentPage, setCurrentPage] = useState(1);
 
-  const totalPages = Math.ceil(
-    discountedProducts.length / itemsPerPage
-  );
+  const totalPages = Math.ceil(discountedProducts.length / itemsPerPage);
 
   const startIndex = (currentPage - 1) * itemsPerPage;
 
   const currentProducts = discountedProducts.slice(
     startIndex,
-    startIndex + itemsPerPage
+    startIndex + itemsPerPage,
   );
 
-  {/* loading screen */ }
+  {
+    /* loading screen */
+  }
   if (loading) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/10 backdrop-blur-xl">
@@ -145,13 +140,9 @@ function Dashboard() {
           <div className="flex flex-col items-center gap-4">
             <div className="w-14 h-14 border-[3px] border-gray-200 border-t-black rounded-full animate-spin"></div>
 
-            <h2 className="text-lg font-semibold text-gray-900">
-              Loading...
-            </h2>
+            <h2 className="text-lg font-semibold text-gray-900">Loading...</h2>
 
-            <p className="text-sm text-gray-500">
-              Please wait a moment
-            </p>
+            <p className="text-sm text-gray-500">Please wait a moment</p>
           </div>
         </div>
       </div>
@@ -159,41 +150,29 @@ function Dashboard() {
   }
   return (
     <div className="min-h-screen bg-gray-50 px-4 md:px-6 py-6">
-
       {/* Navbar */}
       <Navbar isLogged={isLoggedIn} user={user} />
 
       {/* Hero Section */}
       <section className="mt-5 relative overflow-hidden rounded-[32px] bg-white border border-gray-100 shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
-
         {/* Background Glow */}
         <div className="absolute right-[-100px] top-1/2 -translate-y-12 w-[300px] h-[300px] md:w-[450px] md:h-[450px] lg:w-[550px] lg:h-[550px] rounded-full bg-gray-100 blur-3xl"></div>
 
         <div className="relative flex flex-col-reverse lg:flex-row items-center justify-between min-h-[500px] md:min-h-[600px] lg:min-h-[650px]">
-
           {/* Left Content */}
           <div className="w-full lg:w-1/2 px-6 md:px-10 lg:px-20 py-10 z-10">
-
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[0.95]">
+              <span className="text-gray-400 block">Elevate Your</span>
 
-              <span className="text-gray-400 block">
-                Elevate Your
-              </span>
-
-              <span className="text-black block mt-2">
-                Everyday Style
-              </span>
-
+              <span className="text-black block mt-2">Everyday Style</span>
             </h1>
 
             <p className="mt-6 text-gray-500 text-base lg:text-lg leading-relaxed max-w-xl">
-              Discover the latest trends in fashion and accessories.
-              Shop premium collections designed to elevate your
-              everyday look.
+              Discover the latest trends in fashion and accessories. Shop
+              premium collections designed to elevate your everyday look.
             </p>
 
             <div className="flex flex-wrap gap-4 mt-8">
-
               <button className="bg-black text-white px-8 py-4 rounded-2xl font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
                 Shop Now
               </button>
@@ -201,13 +180,11 @@ function Dashboard() {
               <button className="border border-black px-8 py-4 rounded-2xl font-semibold transition-all duration-300 hover:bg-black hover:text-white">
                 Explore
               </button>
-
             </div>
           </div>
 
           {/* Right Image */}
           <div className="relative w-full lg:w-1/2 flex justify-center items-center py-10">
-
             {/* Circle Background */}
             <div className="absolute w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] md:w-[450px] md:h-[450px] lg:w-[550px] lg:h-[550px] rounded-full bg-gray-100"></div>
 
@@ -215,9 +192,7 @@ function Dashboard() {
             <div className="hidden lg:flex absolute top-20 left-5 bg-white rounded-2xl shadow-lg px-5 py-3 z-20">
               <div>
                 <p className="font-semibold">🔥 Trending</p>
-                <p className="text-sm text-gray-500">
-                  Summer Collection
-                </p>
+                <p className="text-sm text-gray-500">Summer Collection</p>
               </div>
             </div>
 
@@ -241,25 +216,18 @@ function Dashboard() {
             {/* Offer Card */}
             <div className="hidden lg:flex absolute bottom-16 right-8 bg-white rounded-2xl shadow-lg px-5 py-3 z-20">
               <div>
-                <p className="font-bold text-lg">
-                  50% OFF
-                </p>
+                <p className="font-bold text-lg">50% OFF</p>
 
-                <p className="text-sm text-gray-500">
-                  Limited Time
-                </p>
+                <p className="text-sm text-gray-500">Limited Time</p>
               </div>
             </div>
-
           </div>
         </div>
       </section>
 
       {/* Features Section */}
       <section className="mt-5 flex justify-center rounded-3xl bg-white border border-gray-100 shadow-[0_10px_30px_rgba(0,0,0,0.05)] p-5 md:p-6 lg:p-8">
-
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
-
           {features.map((item, index) => (
             <div
               key={index}
@@ -307,12 +275,9 @@ function Dashboard() {
 
       {/* Deals Section */}
       <section className="mt-10">
-
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-3xl font-bold">
-              🔥 Deals Of The Week
-            </h2>
+            <h2 className="text-3xl font-bold">🔥 Deals Of The Week</h2>
             <p className="text-gray-500">
               Grab these products before the offer ends.
             </p>
@@ -320,14 +285,12 @@ function Dashboard() {
         </div>
 
         <div className="grid justify-center grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-
           {currentProducts.map((product) => (
             <div
               key={product._id}
               className="bg-white  rounded-3xl p-4 shadow-sm hover:shadow-xl transition duration-300"
             >
               <div className="relative bg-gray-100 rounded-2xl overflow-hidden">
-
                 <span className="absolute top-3 left-3 bg-black text-white text-xs px-3 py-1 rounded-full z-10">
                   {product.productDiscount}% OFF
                 </span>
@@ -345,7 +308,10 @@ function Dashboard() {
 
               <div className="flex items-center gap-2 mt-2">
                 <span className="text-lg md:text-xl font-bold">
-                  ₹{Math.round(product.productPrice * (product.productDiscount / 100))}
+                  ₹
+                  {Math.round(
+                    product.productPrice * (product.productDiscount / 100),
+                  )}
                 </span>
 
                 <span className="text-gray-400 line-through text-sm">
@@ -360,24 +326,19 @@ function Dashboard() {
                   } else {
                     handleAddToCart(product._id);
                   }
-                }
-                }
-                className="w-full mt-4 bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-800 transition">
+                }}
+                className="w-full mt-4 bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-800 transition"
+              >
                 {isProductInCart(product._id) ? "Go to Cart" : "Add To Cart"}
               </button>
             </div>
           ))}
-
         </div>
         {/* Pagination */}
         {totalPages > 1 && (
           <div className="flex items-center justify-center gap-3 mt-8">
             <button
-              onClick={() =>
-                setCurrentPage((prev) =>
-                  Math.max(prev - 1, 1)
-                )
-              }
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
               className="px-4 py-2 bg-gray-200 rounded-lg disabled:opacity-50"
             >
@@ -390,9 +351,7 @@ function Dashboard() {
 
             <button
               onClick={() =>
-                setCurrentPage((prev) =>
-                  Math.min(prev + 1, totalPages)
-                )
+                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
               }
               disabled={currentPage === totalPages}
               className="px-4 py-2 bg-gray-200 rounded-lg disabled:opacity-50"
@@ -401,7 +360,6 @@ function Dashboard() {
             </button>
           </div>
         )}
-
       </section>
 
       {/* Footer */}

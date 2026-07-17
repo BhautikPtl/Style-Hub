@@ -22,14 +22,12 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 function Navbar(props) {
-
-  const { isLogged, user } = props
+  const { isLogged, user } = props;
 
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const Islogin = isLogged;
-
 
   const navItems = [
     { path: "/", label: "Home", icon: faHouse },
@@ -39,27 +37,28 @@ function Navbar(props) {
     { path: "/review", label: "Review", icon: faStar },
   ];
 
-
   const navigate = useNavigate();
   const handleLogout = () => {
-    axios.post("http://localhost:5000/api/auth/logout", {}, { withCredentials: true })
+    axios
+      .post(
+        "http://localhost:5000/api/auth/logout",
+        {},
+        { withCredentials: true },
+      )
       .then((response) => {
         navigate("/login");
       })
       .catch((error) => {
         console.error("Error logging out:", error);
       });
-  }
+  };
 
   return (
     <header className="sticky top-4 z-50">
       <div className="rounded-[32px] border border-gray-200 bg-white/80 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
-
         <div className="flex items-center justify-between px-4 lg:px-6 py-3">
-
           {/* Left */}
           <div className="flex items-center gap-3">
-
             {/* Mobile Menu Button */}
             <button
               className="lg:hidden"
@@ -76,15 +75,9 @@ function Navbar(props) {
 
             {/* Logo */}
             <NavLink to="/" className="flex items-center gap-2">
-              <img
-                src={logo}
-                alt="Logo"
-                className="w-8 lg:w-10"
-              />
+              <img src={logo} alt="Logo" className="w-8 lg:w-10" />
 
-              <h1 className="text-xl lg:text-2xl font-medium">
-                StyleHub
-              </h1>
+              <h1 className="text-xl lg:text-2xl font-medium">StyleHub</h1>
             </NavLink>
           </div>
 
@@ -110,7 +103,6 @@ function Navbar(props) {
 
           {/* Right */}
           <div className="flex items-center gap-4">
-
             {Islogin ? (
               <>
                 {/* Cart */}
@@ -121,12 +113,8 @@ function Navbar(props) {
                       ? "relative flex items-center gap-2  text-black rounded-xl"
                       : "relative flex items-center gap-2 rounded-xl hover:bg-gray-100 transition"
                   }
-
                 >
-                  <FontAwesomeIcon
-                    icon={faCartShopping}
-                    className="text-2xl"
-                  />
+                  <FontAwesomeIcon icon={faCartShopping} className="text-2xl" />
 
                   <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-black text-white text-[10px] font-bold">
                     {user?.cart?.length || 0}
@@ -150,9 +138,7 @@ function Navbar(props) {
                     className="w-8 h-8 rounded-full border object-cover"
                   />
 
-                  <span className="hidden lg:block">
-                    Hello, {user.name}
-                  </span>
+                  <span className="hidden lg:block">Hello, {user.name}</span>
                 </button>
 
                 {/* Dropdown */}
@@ -198,7 +184,6 @@ function Navbar(props) {
         {/* Mobile Menu */}
         {isOpen && (
           <div className="lg:hidden border-t border-gray-100 p-4">
-
             <div className="flex flex-col gap-2">
               {navItems.map((item) => (
                 <NavLink
@@ -216,7 +201,6 @@ function Navbar(props) {
                 </NavLink>
               ))}
             </div>
-
           </div>
         )}
       </div>

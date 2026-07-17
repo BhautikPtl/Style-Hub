@@ -1,60 +1,81 @@
-import React from 'react'
-import { Routes, Route } from 'react-router-dom'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import Dashboard from './pages/Dashboard'
-import Shop from './pages/Shop'
-import Orders from './pages/Orders'
-import Wishlist from './pages/Wishlist'
-import Review from './pages/Review'
-import Cart from './pages/Cart'
-import Admindashboard from './pages/AdminDashboard'
-import ProtectedRoute from './Private/ProtectedRoute';
-import ForgetPassword from './pages/ForgetPassword';
-import SetPassword from './pages/SetPassword';
-import AddProduct from './pages/AddProduct';
-import ShowProduct from './pages/ShowProduct';
-import Profile from './pages/Profile'
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import Shop from "./pages/Shop";
+import Orders from "./pages/Orders";
+import Wishlist from "./pages/Wishlist";
+import Review from "./pages/Review";
+import Cart from "./pages/Cart";
+import Admindashboard from "./pages/AdminDashboard";
+import ProtectedRoute from "./Private/ProtectedRoute";
+import ForgetPassword from "./pages/ForgetPassword";
+import SetPassword from "./pages/SetPassword";
+import AddProduct from "./pages/AddProduct";
+import ShowProduct from "./pages/ShowProduct";
+import Profile from "./pages/Profile";
+import Checkout from "./pages/Checkout";
+import ViewOrder from "./pages/ViewOrder";
+import ShowOrder from "./pages/ShowOrder";
 // import EditProduct from './pages/EditProduct';
-
-
 
 function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={
-          <Dashboard />
-        } />
-        <Route path="/admindashboard" element={
-          <ProtectedRoute url="admindashboard">
-            <Admindashboard />
-          </ProtectedRoute>} />
-        <Route path="/addproduct" element={
-          <ProtectedRoute url="addproduct">
-            <AddProduct />
-          </ProtectedRoute>} />
-        <Route path="/showproduct" element={
-          <ProtectedRoute url="showproduct">
-            <ShowProduct />
-          </ProtectedRoute>} />
+        <Route path="/" element={<Dashboard />} />
+        <Route
+          path="/admindashboard"
+          element={
+            <ProtectedRoute url="admindashboard">
+              <Admindashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/addproduct"
+          element={
+            <ProtectedRoute url="addproduct">
+              <AddProduct />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/showproduct"
+          element={
+            <ProtectedRoute url="showproduct">
+              <ShowProduct />
+            </ProtectedRoute>
+          }
+        />
         {/* <Route path="/editproduct/:id" element={
           <ProtectedRoute url="editproduct">
             <EditProduct />
           </ProtectedRoute>} /> */}
+        <Route
+          path="/showorders"
+          element={
+            <ProtectedRoute url="showorders">
+              <ShowOrder />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgetpassword" element={<ForgetPassword />} />
         <Route path="/set-password/:token" element={<SetPassword />} />
-        <Route path="/profile" element={<Profile />}/>
+        <Route path="/profile" element={<Profile />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/review" element={<Review />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/view-order/:id" element={<ViewOrder />} />
       </Routes>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

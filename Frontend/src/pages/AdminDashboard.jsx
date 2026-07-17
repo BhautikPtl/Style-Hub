@@ -1,13 +1,12 @@
-import React from 'react'
-import AdminNavbar from '../Componet/AdminNavbar'
+import React from "react";
+import AdminNavbar from "../Componet/AdminNavbar";
 
 function AdminDashboard() {
-  
   return (
     <div>
       <AdminNavbar />
     </div>
-  )
+  );
 }
 
-export default AdminDashboard
+export default AdminDashboard;

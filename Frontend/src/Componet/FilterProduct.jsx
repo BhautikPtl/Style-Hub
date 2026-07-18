@@ -1,7 +1,12 @@
 import { useState } from "react";
 import Herobg from "../assets/heroImg.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark, faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faXmark,
+  faAngleDown,
+  faHeart,
+} from "@fortawesome/free-solid-svg-icons";
+import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect } from "react";
@@ -50,6 +55,37 @@ function FilterProduct(props) {
     } else {
       navigate("/login");
     }
+  };
+
+  const handleAddToFavorites = async (productId) => {
+    if (isLoggedIn) {
+      try {
+        const response = await axios.post(
+          `http://localhost:5000/api/product/add-to-favorites/${productId}`,
+          {},
+          {
+            withCredentials: true,
+          },
+        );
+        await CheckLogin(); // Refresh user data after adding to favorites
+      } catch (error) {
+        console.log("Response Error:", error.response?.data);
+        console.log("Status:", error.response?.status);
+        console.log(error);
+      }
+    } else {
+      navigate("/login");
+    }
+  };
+
+  const isWishlisted = (productId) => {
+    return user?.wishlist?.some((item) => {
+      if (!item) return false;
+
+      const id = item._id ? item._id.toString() : item.toString();
+
+      return id === productId.toString();
+    });
   };
 
   const filterProducts = async () => {
@@ -197,7 +233,7 @@ function FilterProduct(props) {
           {currentProducts.map((product) => (
             <div
               key={product._id}
-              className="bg-white   rounded-3xl p-4  shadow-sm hover:shadow-xl transition-all duration-300"
+              className="relative bg-white   rounded-3xl p-4  shadow-sm hover:shadow-xl transition-all duration-300"
             >
               <div className="relative bg-gray-100 rounded-2xl overflow-hidden">
                 <img
@@ -226,6 +262,17 @@ function FilterProduct(props) {
                 className="w-full mt-4 bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-800 transition"
               >
                 {isProductInCart(product._id) ? "Go to Cart" : "Add To Cart"}
+              </button>
+              <button
+                onClick={() => handleAddToFavorites(product._id)}
+                className="absolute top-5 right-5 bg-black text-2xl p-1 rounded-full transition"
+              >
+                <FontAwesomeIcon
+                  icon={isWishlisted(product._id) ? faHeart : faHeartRegular}
+                  className={
+                    isWishlisted(product._id) ? "text-red-500" : "text-white"
+                  }
+                />
               </button>
             </div>
           ))}

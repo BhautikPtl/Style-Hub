@@ -9,7 +9,9 @@ import {
   faShield,
   faRotate,
   faHeadset,
+  faHeart,
 } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import Footer from "../Componet/Footer";
 import axios from "axios";
 
@@ -83,6 +85,37 @@ function Dashboard() {
     } else {
       navigate("/login");
     }
+  };
+
+  const handleAddToFavorites = async (productId) => {
+    if (isLoggedIn) {
+      try {
+        const response = await axios.post(
+          `http://localhost:5000/api/product/add-to-favorites/${productId}`,
+          {},
+          {
+            withCredentials: true,
+          },
+        );
+        await CheckLogin(); // Refresh user data after adding to favorites
+      } catch (error) {
+        console.log("Response Error:", error.response?.data);
+        console.log("Status:", error.response?.status);
+        console.log(error);
+      }
+    } else {
+      navigate("/login");
+    }
+  };
+
+  const isWishlisted = (productId) => {
+    return user?.wishlist?.some((item) => {
+      if (!item) return false;
+
+      const id = item._id ? item._id.toString() : item.toString();
+
+      return id === productId.toString();
+    });
   };
 
   const isProductInCart = (productId) => {
@@ -285,54 +318,67 @@ function Dashboard() {
         </div>
 
         <div className="grid justify-center grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-          {currentProducts.map((product) => (
-            <div
-              key={product._id}
-              className="bg-white  rounded-3xl p-4 shadow-sm hover:shadow-xl transition duration-300"
-            >
-              <div className="relative bg-gray-100 rounded-2xl overflow-hidden">
-                <span className="absolute top-3 left-3 bg-black text-white text-xs px-3 py-1 rounded-full z-10">
-                  {product.productDiscount}% OFF
-                </span>
-
-                <img
-                  src={`http://localhost:5000/uploads/${product.productImage}`}
-                  alt={product.productName}
-                  className="w-full h-80 object-cover object-top hover:scale-105 transition duration-300"
-                />
-              </div>
-
-              <h3 className="font-semibold mt-4 text-sm md:text-base">
-                {product.productName}
-              </h3>
-
-              <div className="flex items-center gap-2 mt-2">
-                <span className="text-lg md:text-xl font-bold">
-                  ₹
-                  {Math.round(
-                    product.productPrice * (product.productDiscount / 100),
-                  )}
-                </span>
-
-                <span className="text-gray-400 line-through text-sm">
-                  ₹{product.productPrice}
-                </span>
-              </div>
-
-              <button
-                onClick={() => {
-                  if (isProductInCart(product._id)) {
-                    navigate("/cart");
-                  } else {
-                    handleAddToCart(product._id);
-                  }
-                }}
-                className="w-full mt-4 bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-800 transition"
+          {currentProducts.map((product) => {
+            return (
+              <div
+                key={product._id}
+                className="bg-white relative rounded-3xl p-4 shadow-sm hover:shadow-xl transition duration-300"
               >
-                {isProductInCart(product._id) ? "Go to Cart" : "Add To Cart"}
-              </button>
-            </div>
-          ))}
+                <div className="relative bg-gray-100 rounded-2xl overflow-hidden">
+                  <span className="absolute top-3 left-3 bg-black text-white text-xs px-3 py-1 rounded-full z-10">
+                    {product.productDiscount}% OFF
+                  </span>
+
+                  <img
+                    src={`http://localhost:5000/uploads/${product.productImage}`}
+                    alt={product.productName}
+                    className="w-full h-80 object-cover object-top hover:scale-105 transition duration-300"
+                  />
+                </div>
+
+                <h3 className="font-semibold mt-4 text-sm md:text-base">
+                  {product.productName}
+                </h3>
+
+                <div className="flex items-center gap-2 mt-2">
+                  <span className="text-lg md:text-xl font-bold">
+                    ₹
+                    {Math.round(
+                      product.productPrice * (product.productDiscount / 100),
+                    )}
+                  </span>
+
+                  <span className="text-gray-400 line-through text-sm">
+                    ₹{product.productPrice}
+                  </span>
+                </div>
+
+                <button
+                  onClick={() => {
+                    if (isProductInCart(product._id)) {
+                      navigate("/cart");
+                    } else {
+                      handleAddToCart(product._id);
+                    }
+                  }}
+                  className="w-full mt-4 bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-800 transition"
+                >
+                  {isProductInCart(product._id) ? "Go to Cart" : "Add To Cart"}
+                </button>
+                <button
+                  onClick={() => handleAddToFavorites(product._id)}
+                  className="absolute top-5 right-5 bg-black text-2xl p-1 rounded-full transition"
+                >
+                  <FontAwesomeIcon
+                    icon={isWishlisted(product._id) ? faHeart : faHeartRegular}
+                    className={
+                      isWishlisted(product._id) ? "text-red-500" : "text-white"
+                    }
+                  />
+                </button>
+              </div>
+            );
+          })}
         </div>
         {/* Pagination */}
         {totalPages > 1 && (

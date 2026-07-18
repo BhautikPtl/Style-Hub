@@ -12,6 +12,7 @@ const {
   removeFromCart,
   increaseCartQuantity,
   decreaseCartQuantity,
+  addToFavorites,
 } = require("../Controllers/ProductController");
 
 router.post(
@@ -42,5 +43,7 @@ router.post(
   IsloggedIn,
   decreaseCartQuantity,
 );
+
+router.post("/add-to-favorites/:productId", IsloggedIn, addToFavorites);
 
 module.exports = router;

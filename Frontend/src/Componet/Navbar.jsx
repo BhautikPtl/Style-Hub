@@ -14,6 +14,7 @@ import {
   faXmark,
   faArrowRightFromBracket,
   faCartShopping,
+  faCircleInfo,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { NavLink } from "react-router-dom";
@@ -35,6 +36,7 @@ function Navbar(props) {
     { path: "/orders", label: "Orders", icon: faBoxOpen },
     { path: "/wishlist", label: "Wishlist", icon: faHeart },
     { path: "/review", label: "Review", icon: faStar },
+    { path: "/about", label: "About", icon: faCircleInfo },
   ];
 
   const navigate = useNavigate();

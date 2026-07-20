@@ -435,6 +435,10 @@ const showorders = (req, res) => {
   res.status(200).json({ message: "Welcome to the show orders page" });
 };
 
+const editproduct = (req, res) => {
+  res.status(200).json({ message: "Welcome to the edit product page" });
+};
+
 module.exports = {
   register,
   logout,
@@ -448,4 +452,5 @@ module.exports = {
   addproduct,
   showproduct,
   showorders,
+  editproduct,
 };

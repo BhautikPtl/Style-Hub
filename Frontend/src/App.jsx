@@ -18,6 +18,12 @@ import Profile from "./pages/Profile";
 import Checkout from "./pages/Checkout";
 import ViewOrder from "./pages/ViewOrder";
 import ShowOrder from "./pages/ShowOrder";
+import Detailst from "./pages/Detailst";
+import FAQ from "./pages/FAQ";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsAndConditions from "./pages/TermsConditions";
+import Support from "./pages/Support";
+import EditProduct from "./pages/EditProduct";
 // import EditProduct from './pages/EditProduct';
 
 function App() {
@@ -49,10 +55,14 @@ function App() {
             </ProtectedRoute>
           }
         />
-        {/* <Route path="/editproduct/:id" element={
-          <ProtectedRoute url="editproduct">
-            <EditProduct />
-          </ProtectedRoute>} /> */}
+        <Route
+          path="/edit-product/:id"
+          element={
+            <ProtectedRoute url="editproduct">
+              <EditProduct />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/showorders"
           element={
@@ -73,6 +83,11 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/view-order/:id" element={<ViewOrder />} />
+        <Route path="/detail/:id" element={<Detailst />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+        <Route path="/support" element={<Support />} />
       </Routes>
     </div>
   );

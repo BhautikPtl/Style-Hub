@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
 import AdminNavbar from "../Componet/AdminNavbar";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function ShowProduct() {
   const [products, setProducts] = useState([]);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(true);
 
+  const navigate = useNavigate();
+
   const fetchProducts = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/product/get-products",
+        "http://localhost:5000/api/product/get-admin-products",
         {
           withCredentials: true,
         },
@@ -181,7 +184,12 @@ function ShowProduct() {
                       Delete
                     </button>
 
-                    <button className="px-5 py-2 bg-black text-white rounded-xl hover:bg-gray-800 transition">
+                    <button
+                      onClick={() => {
+                        navigate(`/edit-product/${product._id}`);
+                      }}
+                      className="px-5 py-2 bg-black text-white rounded-xl hover:bg-gray-800 transition"
+                    >
                       Edit Product
                     </button>
 

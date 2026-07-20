@@ -12,9 +12,7 @@ function Footer() {
   const companyLinks = [
     { path: "/about", label: "About Us" },
     { path: "/contact", label: "Contact" },
-    { path: "/careers", label: "Careers" },
-    { path: "/blog", label: "Blog" },
-    { path: "/faqs", label: "FAQs" },
+    { path: "/faq", label: "FAQs" },
   ];
 
   const quickLinks = [
@@ -126,7 +124,7 @@ function Footer() {
               </NavLink>
 
               <NavLink
-                to="/terms"
+                to="/terms-and-conditions"
                 className={({ isActive }) =>
                   isActive
                     ? "text-black underline underline-offset-4"

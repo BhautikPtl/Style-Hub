@@ -13,6 +13,8 @@ const {
   increaseCartQuantity,
   decreaseCartQuantity,
   addToFavorites,
+  getProductById,
+  updateProduct,
 } = require("../Controllers/ProductController");
 
 router.post(
@@ -22,11 +24,20 @@ router.post(
   addProduct,
 );
 
-router.get("/get-products", adminOnly, getProducts);
+router.put(
+  "/update-product/:id",
+  adminOnly,
+  upload.single("productImage"),
+  updateProduct,
+);
+
+router.get("/get-admin-products", adminOnly, getProducts);
+
+router.get("/get-products", getProducts);
 
 router.put("/update-discount/:id", adminOnly, updatediscount);
 
-router.get("/filter-products", adminOnly, filterProducts);
+router.get("/filter-products", filterProducts);
 
 router.post("/add-to-cart/:productId", IsloggedIn, addToCart);
 
@@ -45,5 +56,7 @@ router.post(
 );
 
 router.post("/add-to-favorites/:productId", IsloggedIn, addToFavorites);
+
+router.get("/get-product/:id", getProductById);
 
 module.exports = router;

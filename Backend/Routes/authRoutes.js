@@ -13,6 +13,7 @@ const {
   addproduct,
   showproduct,
   showorders,
+  editproduct,
 } = require("../Controllers/authController");
 const { IsloggedIn, adminOnly } = require("../middleware/authMiddleware");
 
@@ -28,5 +29,6 @@ router.get("/admindashboard", adminOnly, adminDashboard);
 router.get("/addproduct", adminOnly, addproduct);
 router.get("/showproduct", adminOnly, showproduct);
 router.get("/showorders", adminOnly, showorders);
+router.get("/editproduct", adminOnly, editproduct);
 
 module.exports = router;

@@ -330,6 +330,7 @@ function Dashboard() {
                   </span>
 
                   <img
+                    onClick={() => navigate(`/detail/${product._id}`)}
                     src={`http://localhost:5000/uploads/${product.productImage}`}
                     alt={product.productName}
                     className="w-full h-80 object-cover object-top hover:scale-105 transition duration-300"
@@ -344,7 +345,8 @@ function Dashboard() {
                   <span className="text-lg md:text-xl font-bold">
                     ₹
                     {Math.round(
-                      product.productPrice * (product.productDiscount / 100),
+                      product.productPrice -
+                        (product.productPrice * product.productDiscount) / 100,
                     )}
                   </span>
 

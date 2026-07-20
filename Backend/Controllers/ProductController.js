@@ -352,14 +352,88 @@ const addToFavorites = async (req, res) => {
   }
 };
 
+const getProductById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log("Product ID:", id); // Log the product ID to verify it's being received correctly
+    const product = await productModule.findById(id);
+
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      product,
+    });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+const updateProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {
+      productName,
+      productDescription,
+      productPrice,
+      productCategory,
+      productDiscount,
+    } = req.body;
+
+    const product = await productModule.findByIdAndUpdate(
+      id,
+      {
+        productName,
+        productDescription,
+        productPrice,
+        productCategory,
+        productDiscount,
+        productImage: req.file ? req.file.filename : undefined,
+      },
+      { new: true },
+    );
+
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      product,
+    });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   addProduct,
   getProducts,
   updatediscount,
+  updateProduct,
   addToCart,
   increaseCartQuantity,
   decreaseCartQuantity,
   removeFromCart,
   filterProducts,
+  getProductById,
   addToFavorites,
 };

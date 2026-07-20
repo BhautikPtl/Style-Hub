@@ -57,6 +57,10 @@ function FilterProduct(props) {
     }
   };
 
+  const isProductInCart = (productId) => {
+    return user?.cart?.some((item) => item.productId?._id === productId);
+  };
+
   const handleAddToFavorites = async (productId) => {
     if (isLoggedIn) {
       try {
@@ -106,10 +110,6 @@ function FilterProduct(props) {
           "Something went wrong",
       );
     }
-  };
-
-  const isProductInCart = (productId) => {
-    return user?.cart?.some((item) => item.productId?._id === productId);
   };
 
   useEffect(() => {
@@ -237,6 +237,7 @@ function FilterProduct(props) {
             >
               <div className="relative bg-gray-100 rounded-2xl overflow-hidden">
                 <img
+                  onClick={() => navigate(`/detail/${product._id}`)}
                   src={`http://localhost:5000/uploads/${product.productImage}`}
                   alt={product.productName}
                   className="w-full h-80 object-cover object-top hover:scale-105 transition duration-300"

@@ -11,6 +11,7 @@ function Detailst() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [selectedImage, setSelectedImage] = useState("");
 
   useEffect(() => {
     fetchProduct();
@@ -97,6 +98,10 @@ function Detailst() {
       );
 
       setProduct(data.product);
+
+      if (data.product.productImages?.length > 0) {
+        setSelectedImage(data.product.productImages[0]);
+      }
     } catch (error) {
       console.log(error);
       console.error("Error fetching product:", error.response?.data);
@@ -145,79 +150,96 @@ function Detailst() {
           ← Back
         </button>
 
-        <div className="bg-white rounded-[35px] border shadow-sm overflow-hidden">
-          <div className="grid lg:grid-cols-2 gap-10 p-6 lg:p-10">
-            {/* Image Section */}
-            <div>
-              <div className="bg-gray-100 rounded-[30px] overflow-hidden">
+        <div className="bg-white rounded-[35px] shadow-lg overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 p-5 md:p-8 lg:p-10">
+            {/* ================= Images ================= */}
+            <div className="flex flex-col lg:flex-row gap-5">
+              {/* Thumbnails */}
+              <div className="order-2 lg:order-1 flex lg:flex-col gap-3 overflow-x-auto lg:overflow-visible">
+                {product.productImages?.map((image, index) => (
+                  <div
+                    key={index}
+                    onClick={() => setSelectedImage(image)}
+                    className={`w-20 h-20 rounded-2xl overflow-hidden cursor-pointer border-2 transition duration-300 flex-shrink-0 ${
+                      selectedImage === image
+                        ? "border-black"
+                        : "border-gray-300 hover:border-black"
+                    }`}
+                  >
+                    <img
+                      src={`http://localhost:5000/uploads/${image}`}
+                      alt={`Product ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {/* Main Image */}
+              <div className="order-1 lg:order-2 flex-1">
                 <img
-                  src={`http://localhost:5000/uploads/${product.productImage}`}
+                  src={`http://localhost:5000/uploads/${selectedImage}`}
                   alt={product.productName}
-                  className="w-full h-[500px] object-cover object-top hover:scale-105 transition duration-500"
+                  className="max-h-full object-cover rounded-2xl w-full"
                 />
               </div>
             </div>
 
-            {/* Product Details */}
-            <div className="flex flex-col justify-center">
-              {product.weekDials && (
-                <span className="bg-black text-white px-4 py-2 rounded-full text-sm w-fit mb-4">
-                  🔥 Week Deal
-                </span>
-              )}
-
-              <h1 className="text-4xl md:text-5xl font-bold">
+            {/* ================= Details ================= */}
+            <div className="flex flex-col">
+              <h1 className="text-3xl md:text-5xl font-bold mt-5">
                 {product.productName}
               </h1>
 
-              <p className="mt-4 text-gray-600 leading-relaxed">
+              <p className="text-gray-500 mt-5 leading-7 text-base">
                 {product.productDescription}
               </p>
 
-              <div className="mt-6">
-                <span className="bg-gray-100 px-4 py-2 rounded-xl text-sm font-medium">
+              {/* Category */}
+              <div className="mt-5">
+                <span className="bg-gray-100 px-4 py-2 rounded-full text-sm font-medium">
                   {product.productCategory}
                 </span>
               </div>
 
               {/* Price */}
-              <div className="flex items-center gap-4 mt-8">
+              <div className="flex flex-wrap items-center gap-4 mt-8">
                 <h2 className="text-4xl font-bold">
                   ₹{Math.round(finalPrice)}
                 </h2>
 
                 {product.productDiscount > 0 && (
                   <>
-                    <span className="text-gray-400 text-xl line-through">
+                    <span className="text-2xl text-gray-400 line-through">
                       ₹{product.productPrice}
                     </span>
 
-                    <span className="bg-green-100 text-green-700 px-3 py-1 rounded-lg font-semibold">
+                    <span className="bg-green-100 text-green-700 px-3 py-2 rounded-full font-semibold">
                       {product.productDiscount}% OFF
                     </span>
                   </>
                 )}
               </div>
 
-              {/* Product Info */}
+              {/* Info Cards */}
               <div className="grid grid-cols-2 gap-4 mt-8">
-                <div className="bg-gray-50 rounded-2xl p-5">
+                <div className="bg-gray-100 rounded-2xl p-5">
                   <p className="text-gray-500 text-sm">Category</p>
 
-                  <h3 className="font-bold mt-1">{product.productCategory}</h3>
+                  <h3 className="font-bold mt-2">{product.productCategory}</h3>
                 </div>
 
-                <div className="bg-gray-50 rounded-2xl p-5">
+                <div className="bg-gray-100 rounded-2xl p-5">
                   <p className="text-gray-500 text-sm">Discount</p>
 
-                  <h3 className="font-bold mt-1">
+                  <h3 className="font-bold mt-2">
                     {product.productDiscount || 0}%
                   </h3>
                 </div>
               </div>
 
               {/* Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 mt-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10">
                 <button
                   onClick={() => {
                     if (isProductInCart(product._id)) {
@@ -226,18 +248,18 @@ function Detailst() {
                       handleAddToCart(product._id);
                     }
                   }}
-                  className="flex-1  bg-black text-white py-4 rounded-xl font-medium hover:bg-gray-800 transition"
+                  className="bg-black text-white py-4 rounded-2xl font-semibold hover:bg-gray-800 transition"
                 >
-                  {isProductInCart(product._id) ? "Go to Cart" : "Add To Cart"}
+                  {isProductInCart(product._id) ? "Go To Cart" : "Add To Cart"}
                 </button>
 
                 <button
                   onClick={() => handleAddToFavorites(product._id)}
-                  className="flex-1 border border-black py-4 rounded-2xl font-semibold hover:bg-black hover:text-white transition"
+                  className="border-2 border-black py-4 rounded-2xl font-semibold hover:bg-black hover:text-white transition"
                 >
                   {isWishlisted(product._id)
-                    ? "Remove from Wishlist"
-                    : "Add to Wishlist"}
+                    ? "Remove Wishlist"
+                    : "Add Wishlist"}
                 </button>
               </div>
             </div>

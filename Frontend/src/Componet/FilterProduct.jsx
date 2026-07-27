@@ -12,13 +12,11 @@ import axios from "axios";
 import { useEffect } from "react";
 
 function FilterProduct(props) {
-  const [category, setCategory] = useState("all");
+  const { isLogged, user, setUser, category } = props;
   const [price, setPrice] = useState(100);
   const [currentPage, setCurrentPage] = useState(1);
   const [isFilter, setIsFilter] = useState(false);
   const [products, setProducts] = useState([]);
-
-  const { isLogged, user, setUser } = props;
 
   const navigate = useNavigate();
   const isLoggedIn = isLogged;
@@ -118,10 +116,9 @@ function FilterProduct(props) {
   }, []);
 
   const filteredProducts = products.filter((product) => {
-    const categoryMatch =
-      category === "all" || product.productCategory === category;
+    const categoryMatch = product.productCategory === category;
 
-    const priceMatch = Number(product.productPrice) <= Number(price) * 20;
+    const priceMatch = product.productPrice <= price * 20;
 
     return categoryMatch && priceMatch;
   });
@@ -149,7 +146,7 @@ function FilterProduct(props) {
             <FontAwesomeIcon icon={faXmark} />
           ) : (
             <>
-              Filter
+              Filter by price
               <FontAwesomeIcon icon={faAngleDown} className="ml-2" />
             </>
           )}
@@ -158,52 +155,6 @@ function FilterProduct(props) {
         {isFilter && (
           <div className="absolute left-0 top-14 z-50 w-72 rounded-3xl border border-gray-100 bg-white shadow-xl p-5">
             <h2 className="font-bold text-lg mb-4">Filters</h2>
-
-            {/* Category */}
-            <div className="p-4 rounded-2xl bg-zinc-100">
-              <h3 className="font-semibold mb-3">Category</h3>
-
-              <div className="flex flex-col gap-3">
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="radio"
-                    name="category"
-                    checked={category === "all"}
-                    onChange={() => {
-                      setCategory("all");
-                      setCurrentPage(1);
-                    }}
-                  />
-                  All Category
-                </label>
-
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="radio"
-                    name="category"
-                    checked={category === "man"}
-                    onChange={() => {
-                      setCategory("man");
-                      setCurrentPage(1);
-                    }}
-                  />
-                  Man
-                </label>
-
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="radio"
-                    name="category"
-                    checked={category === "woman"}
-                    onChange={() => {
-                      setCategory("woman");
-                      setCurrentPage(1);
-                    }}
-                  />
-                  Woman
-                </label>
-              </div>
-            </div>
 
             {/* Price */}
             <div className="p-4 rounded-2xl bg-zinc-100 mt-4">
@@ -230,53 +181,70 @@ function FilterProduct(props) {
       <div className="flex flex-col lg:flex-row gap-5 items-center justify-center">
         {/* Products */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 ">
-          {currentProducts.map((product) => (
-            <div
-              key={product._id}
-              className="relative bg-white   rounded-3xl p-4  shadow-sm hover:shadow-xl transition-all duration-300"
-            >
-              <div className="relative bg-gray-100 rounded-2xl overflow-hidden">
-                <img
-                  onClick={() => navigate(`/detail/${product._id}`)}
-                  src={`http://localhost:5000/uploads/${product.productImage}`}
-                  alt={product.productName}
-                  className="w-full h-80 object-cover object-top hover:scale-105 transition duration-300"
-                />
-              </div>
+          {currentProducts.map(
+            (product) => (
+              console.log("Category in FilterProduct map:", product),
+              (
+                <div
+                  key={product._id}
+                  className="relative bg-white   rounded-3xl p-4  shadow-sm hover:shadow-xl transition-all duration-300"
+                >
+                  <div className="relative bg-gray-100 rounded-2xl overflow-hidden">
+                    <img
+                      onClick={() => navigate(`/detail/${product._id}`)}
+                      src={`http://localhost:5000/uploads/${product.productImages[0]}`}
+                      alt={product.productName}
+                      className="w-full h-80 object-cover object-top hover:scale-105 transition duration-300"
+                    />
+                  </div>
 
-              <h3 className="font-semibold mt-4">{product.productName}</h3>
+                  <h3 className="font-semibold mt-4">{product.productName}</h3>
 
-              <div className="flex items-center gap-2 mt-2">
-                <span className="text-lg font-bold">
-                  ₹{product.productPrice}
-                </span>
-              </div>
+                  <div className="flex items-center gap-2 mt-2">
+                    <span className="text-lg font-bold">
+                      ₹{product.productPrice}
+                    </span>
+                  </div>
 
-              <button
-                onClick={() => {
-                  if (isProductInCart(product._id)) {
-                    navigate("/cart");
-                  } else {
-                    handleAddToCart(product._id);
-                  }
-                }}
-                className="w-full mt-4 bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-800 transition"
-              >
-                {isProductInCart(product._id) ? "Go to Cart" : "Add To Cart"}
-              </button>
-              <button
-                onClick={() => handleAddToFavorites(product._id)}
-                className="absolute top-5 right-5 bg-black text-2xl p-1 rounded-full transition"
-              >
-                <FontAwesomeIcon
-                  icon={isWishlisted(product._id) ? faHeart : faHeartRegular}
-                  className={
-                    isWishlisted(product._id) ? "text-red-500" : "text-white"
-                  }
-                />
-              </button>
+                  <button
+                    onClick={() => {
+                      if (isProductInCart(product._id)) {
+                        navigate("/cart");
+                      } else {
+                        handleAddToCart(product._id);
+                      }
+                    }}
+                    className="w-full mt-4 bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-800 transition"
+                  >
+                    {isProductInCart(product._id)
+                      ? "Go to Cart"
+                      : "Add To Cart"}
+                  </button>
+                  <button
+                    onClick={() => handleAddToFavorites(product._id)}
+                    className="absolute top-5 right-5 bg-black text-2xl p-1 rounded-full transition"
+                  >
+                    <FontAwesomeIcon
+                      icon={
+                        isWishlisted(product._id) ? faHeart : faHeartRegular
+                      }
+                      className={
+                        isWishlisted(product._id)
+                          ? "text-red-500"
+                          : "text-white"
+                      }
+                    />
+                  </button>
+                </div>
+              )
+            ),
+          )}
+
+          {filteredProducts.length === 0 && (
+            <div className="col-span-full text-center py-10 text-gray-500">
+              No products found for the selected filters.
             </div>
-          ))}
+          )}
         </div>
       </div>
 

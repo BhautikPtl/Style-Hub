@@ -14,10 +14,9 @@ function EditProduct() {
   const [productPrice, setProductPrice] = useState("");
   const [productCategory, setProductCategory] = useState("");
   const [productDiscount, setProductDiscount] = useState(0);
-  const [weekDials, setWeekDials] = useState(false);
 
-  const [productImage, setProductImage] = useState(null);
-  const [preview, setPreview] = useState("");
+  const [productImages, setProductImages] = useState([]);
+  const [preview, setPreview] = useState([]);
 
   const [message, setMessage] = useState("");
 
@@ -33,20 +32,23 @@ function EditProduct() {
 
       const product = data.product;
 
-      setProductName(product.productName);
-      setProductDescription(product.productDescription);
-      setProductPrice(product.productPrice);
-      setProductCategory(product.productCategory);
-      setProductDiscount(product.productDiscount);
+      setProductName(product.productName || "");
+      setProductDescription(product.productDescription || "");
+      setProductPrice(product.productPrice || 0);
+      setProductCategory(product.productCategory || "");
+      setProductDiscount(product.productDiscount ?? null);
 
-      setPreview(`http://localhost:5000/uploads/${product.productImage}`);
+      setPreview(
+        product.productImages.map(
+          (img) => `http://localhost:5000/uploads/${img}`,
+        ),
+      );
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
     }
   };
-
   const updateProduct = async (e) => {
     e.preventDefault();
 
@@ -59,8 +61,10 @@ function EditProduct() {
       formData.append("productCategory", productCategory);
       formData.append("productDiscount", productDiscount);
 
-      if (productImage) {
-        formData.append("productImage", productImage);
+      if (productImages.length > 0) {
+        productImages.forEach((image) => {
+          formData.append("productImages", image);
+        });
       }
 
       await axios.put(
@@ -107,18 +111,26 @@ function EditProduct() {
             <div>
               <label className="font-medium block mb-3">Product Image</label>
 
-              <img
-                src={preview}
-                alt=""
-                className="w-40 h-40 rounded-2xl object-cover border mb-4"
-              />
+              <div className="flex flex-wrap gap-3 mb-4">
+                {preview.map((img, index) => (
+                  <img
+                    key={index}
+                    src={img}
+                    alt=""
+                    className="w-32 h-32 rounded-xl object-cover border"
+                  />
+                ))}
+              </div>
 
               <input
                 type="file"
+                multiple
                 onChange={(e) => {
-                  setProductImage(e.target.files[0]);
+                  const files = Array.from(e.target.files);
 
-                  setPreview(URL.createObjectURL(e.target.files[0]));
+                  setProductImages(files);
+
+                  setPreview(files.map((file) => URL.createObjectURL(file)));
                 }}
               />
             </div>

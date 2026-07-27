@@ -77,7 +77,7 @@ function Wishlist() {
                 >
                   <div className="bg-gray-100">
                     <img
-                      src={`http://localhost:5000/uploads/${item.productImage}`}
+                      src={`http://localhost:5000/uploads/${item.productImages?.[0]}`}
                       alt={item.productName}
                       className="w-full h-72 object-cover object-top hover:scale-105 transition duration-300"
                     />

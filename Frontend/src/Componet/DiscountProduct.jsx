@@ -4,13 +4,20 @@ import DiscountTag from "../3dImage/DiscountTag.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHeart,
+  faAngleDown,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 
 function DiscountProduct(props) {
+  const { isLogged, user, setUser, category } = props;
+
   const [products, setProducts] = useState([]);
+  const [price, setPrice] = useState(100);
+  const [isFilter, setIsFilter] = useState(false);
   const navigate = useNavigate();
-  const { isLogged, user, setUser } = props;
 
   const isLoggedIn = isLogged;
 
@@ -113,7 +120,15 @@ function DiscountProduct(props) {
     return user?.cart?.some((item) => item.productId?._id === productId);
   };
 
-  const discountedProducts = products.filter(
+  const filteredProducts = products.filter((product) => {
+    const categoryMatch = product.productCategory === category;
+
+    const priceMatch = product.productPrice <= price * 20;
+
+    return categoryMatch && priceMatch;
+  });
+
+  const discountedProducts = filteredProducts.filter(
     (product) => product.productDiscount <= 40 && product.productDiscount > 0,
   );
 
@@ -143,8 +158,53 @@ function DiscountProduct(props) {
         </h1>
       </div>
 
+      <div className="w-full flex flex-col md:flex-row items-center md:items-center justify-between gap-3">
+        <div className=" mb-3 relative">
+          <button
+            onClick={() => setIsFilter(!isFilter)}
+            className=" m-auto px-4 py-2 bg-black text-white rounded-xl"
+          >
+            {isFilter ? (
+              <FontAwesomeIcon icon={faXmark} />
+            ) : (
+              <>
+                Filter by price
+                <FontAwesomeIcon icon={faAngleDown} className="ml-2" />
+              </>
+            )}
+          </button>
+
+          {isFilter && (
+            <div className="absolute left-0 top-14 z-50 w-72 rounded-3xl border border-gray-100 bg-white shadow-xl p-5">
+              <h2 className="font-bold text-lg mb-4">Filters</h2>
+
+              {/* Price */}
+              <div className="p-4 rounded-2xl bg-zinc-100 mt-4">
+                <h3 className="font-semibold mb-3">Price</h3>
+
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={price}
+                  onChange={(e) => {
+                    setPrice(Number(e.target.value));
+                    setCurrentPage(1);
+                  }}
+                  className="w-full"
+                />
+
+                <p className="mt-2 text-sm text-gray-600">
+                  Up To ₹{price * 20}
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
       {currentProducts.length > 0 ? (
-        <div className="grid w-fulljustify-content grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6 gap-5">
+        <div className="grid w-full justify-content grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6 gap-5">
           {currentProducts.map((product) => {
             return (
               <div
@@ -158,7 +218,7 @@ function DiscountProduct(props) {
 
                   <img
                     onClick={() => navigate(`/detail/${product._id}`)}
-                    src={`http://localhost:5000/uploads/${product.productImage}`}
+                    src={`http://localhost:5000/uploads/${product.productImages[0]}`}
                     alt={product.productName}
                     className="w-full h-80 object-cover object-top hover:scale-105 transition duration-300"
                   />

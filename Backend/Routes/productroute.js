@@ -15,19 +15,20 @@ const {
   addToFavorites,
   getProductById,
   updateProduct,
+  deleteProduct,
 } = require("../Controllers/ProductController");
 
 router.post(
   "/add-product",
   adminOnly,
-  upload.single("productImage"),
+  upload.array("productImages", 5),
   addProduct,
 );
 
 router.put(
   "/update-product/:id",
   adminOnly,
-  upload.single("productImage"),
+  upload.array("productImages", 5),
   updateProduct,
 );
 
@@ -58,5 +59,7 @@ router.post(
 router.post("/add-to-favorites/:productId", IsloggedIn, addToFavorites);
 
 router.get("/get-product/:id", getProductById);
+
+router.delete("/delete-product/:id", adminOnly, deleteProduct);
 
 module.exports = router;

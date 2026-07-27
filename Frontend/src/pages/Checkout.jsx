@@ -181,9 +181,9 @@ const Checkout = () => {
                     className="flex gap-4 items-center border-b pb-4"
                   >
                     <img
-                      src={`http://localhost:5000/uploads/${item.productId?.productImage}`}
+                      src={`http://localhost:5000/uploads/${item.productId?.productImages[0]}`}
                       alt=""
-                      className="w-20 h-20 rounded-xl object-cover"
+                      className="w-20 h-20 rounded-xl object-cover object-top"
                     />
 
                     <div className="flex-1">

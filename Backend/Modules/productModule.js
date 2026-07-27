@@ -27,14 +27,12 @@ const productSchema = new mongoose.Schema(
             default: 0,
         },
 
-        productImage: {
-            type: String,
-            required: true,
-        },
-        weekDials: {
-            type: String,
-            required: true,
-        },
+        productImages: [
+            {
+                type: String,
+                required: true,
+            },
+        ],
     },
     {
         timestamps: true,

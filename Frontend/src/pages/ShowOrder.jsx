@@ -275,12 +275,13 @@ function ShowOrder() {
                             "
                       >
                         <img
-                          src={`http://localhost:5000/uploads/${item.productId.productImage}`}
+                          src={`http://localhost:5000/uploads/${item.productId.productImages[0]}`}
                           className="
                                 w-20
                                 h-20
                                 rounded-lg
                                 object-cover
+                                object-top
                                 "
                         />
 

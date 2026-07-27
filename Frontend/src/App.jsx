@@ -24,6 +24,8 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsAndConditions from "./pages/TermsConditions";
 import Support from "./pages/Support";
 import EditProduct from "./pages/EditProduct";
+import Man from "./pages/Man";
+import Woman from "./pages/Woman";
 // import EditProduct from './pages/EditProduct';
 
 function App() {
@@ -77,6 +79,8 @@ function App() {
         <Route path="/set-password/:token" element={<SetPassword />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/man" element={<Man />} />
+        <Route path="/woman" element={<Woman />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/review" element={<Review />} />

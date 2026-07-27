@@ -6,7 +6,7 @@ function AddProduct() {
   const [productName, setProductName] = useState("");
   const [productDescription, setProductDescription] = useState("");
   const [productPrice, setProductPrice] = useState("");
-  const [productImage, setProductImage] = useState(null);
+  const [productImages, setProductImages] = useState([]);
   const [productCategory, setProductCategory] = useState("");
   const [productDiscount, setProductDiscount] = useState("");
 
@@ -22,8 +22,10 @@ function AddProduct() {
     formData.append("productPrice", productPrice);
     formData.append("productCategory", productCategory);
     formData.append("productDiscount", productDiscount);
-    formData.append("productImage", productImage);
 
+    productImages.forEach((image) => {
+      formData.append("productImages", image);
+    });
     try {
       const { data } = await axios.post(
         "http://localhost:5000/api/product/add-product",
@@ -40,8 +42,7 @@ function AddProduct() {
       setProductPrice("");
       setProductCategory("");
       setProductDiscount("");
-      setProductImage(null);
-      setWeekDials("");
+      setProductImages([]);
     } catch (error) {
       console.log("ERROR =>", error);
       console.log("RESPONSE =>", error?.response);
@@ -140,7 +141,8 @@ function AddProduct() {
 
               <input
                 type="file"
-                onChange={(e) => setProductImage(e.target.files[0])}
+                multiple
+                onChange={(e) => setProductImages(Array.from(e.target.files))}
                 className="w-full border border-gray-300 rounded-xl px-4 py-3"
               />
             </div>

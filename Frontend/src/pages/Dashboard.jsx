@@ -331,7 +331,7 @@ function Dashboard() {
 
                   <img
                     onClick={() => navigate(`/detail/${product._id}`)}
-                    src={`http://localhost:5000/uploads/${product.productImage}`}
+                    src={`http://localhost:5000/uploads/${product.productImages[0]}`}
                     alt={product.productName}
                     className="w-full h-80 object-cover object-top hover:scale-105 transition duration-300"
                   />

@@ -93,9 +93,9 @@ function ViewOrder() {
                 className="flex items-center gap-4 border rounded-2xl p-4"
               >
                 <img
-                  src={`http://localhost:5000/uploads/${item.productId?.productImage}`}
+                  src={`http://localhost:5000/uploads/${item.productId?.productImages[0]}`}
                   alt={item.productId?.productName}
-                  className="w-24 h-24 object-cover rounded-xl"
+                  className="w-24 h-24 object-cover object-top rounded-xl"
                 />
 
                 <div className="flex-1">

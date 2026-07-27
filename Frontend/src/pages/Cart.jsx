@@ -126,9 +126,9 @@ function Cart() {
                       {/* Product Image */}
                       <div className="w-full md:w-40 h-40 rounded-2xl overflow-hidden bg-gray-100 flex-shrink-0">
                         <img
-                          src={`http://localhost:5000/uploads/${item.productId?.productImage}`}
+                          src={`http://localhost:5000/uploads/${item.productId?.productImages[0]}`}
                           alt={item.productId?.productName}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover object-top"
                         />
                       </div>
 

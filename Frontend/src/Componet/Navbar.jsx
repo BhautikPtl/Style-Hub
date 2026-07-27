@@ -31,8 +31,6 @@ function Navbar(props) {
   const Islogin = isLogged;
 
   const navItems = [
-    { path: "/", label: "Home", icon: faHouse },
-    { path: "/shop", label: "Shop", icon: faBagShopping },
     { path: "/orders", label: "Orders", icon: faBoxOpen },
     { path: "/wishlist", label: "Wishlist", icon: faHeart },
     { path: "/review", label: "Review", icon: faStar },
@@ -86,6 +84,52 @@ function Navbar(props) {
           {/* Desktop Navigation */}
           <nav className="hidden lg:block">
             <ul className="flex items-center gap-2">
+              {/* Home */}
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  isActive
+                    ? "flex items-center gap-2 bg-black text-white px-4 py-3 rounded-xl shadow-lg"
+                    : "flex items-center gap-2 px-4 py-3 rounded-xl hover:bg-gray-100 transition"
+                }
+              >
+                <FontAwesomeIcon icon={faHouse} />
+                Home
+              </NavLink>
+
+              {/* Products Dropdown */}
+              <li className="relative group list-none">
+                <button className="flex items-center gap-2 px-4 py-3 rounded-xl hover:bg-gray-100 transition">
+                  <FontAwesomeIcon icon={faBagShopping} />
+                  Products
+                </button>
+
+                <div className="absolute left-0 top-full mt-2 w-48 bg-white rounded-xl shadow-xl border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                  <NavLink
+                    to="/man"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "block px-4 py-3 bg-black text-white rounded-t-xl"
+                        : "block px-4 py-3 hover:bg-gray-100 rounded-t-xl"
+                    }
+                  >
+                    👔 Man
+                  </NavLink>
+
+                  <NavLink
+                    to="/woman"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "block px-4 py-3 bg-black text-white rounded-b-xl"
+                        : "block px-4 py-3 hover:bg-gray-100 rounded-b-xl"
+                    }
+                  >
+                    👗 Women
+                  </NavLink>
+                </div>
+              </li>
+
+              {/* Remaining Menu */}
               {navItems.map((item) => (
                 <NavLink
                   key={item.path}

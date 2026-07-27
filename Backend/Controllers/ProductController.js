@@ -23,12 +23,15 @@ const addProduct = async (req, res) => {
       });
     }
 
-    if (!req.file) {
+    if (!req.files || req.files.length === 0) {
       return res.status(400).json({
         success: false,
-        message: "Product image is required",
+        message: "At least one product image is required",
       });
     }
+
+    // Get all uploaded image names
+    const images = req.files.map((file) => file.filename);
 
     const product = await productModule.create({
       productName,
@@ -36,8 +39,8 @@ const addProduct = async (req, res) => {
       productPrice,
       productCategory,
       productDiscount,
-      productImage: req.file.filename,
-      weekDials,
+      productImages: images,
+
     });
 
     return res.status(201).json({
@@ -424,6 +427,35 @@ const updateProduct = async (req, res) => {
   }
 };
 
+const deleteProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const product = await productModule.findByIdAndDelete(id);
+
+    if (!product) {
+
+
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Product deleted successfully",
+    });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   addProduct,
   getProducts,
@@ -436,4 +468,5 @@ module.exports = {
   filterProducts,
   getProductById,
   addToFavorites,
+  deleteProduct,
 };

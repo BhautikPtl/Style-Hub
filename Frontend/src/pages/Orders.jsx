@@ -177,7 +177,7 @@ function Orders() {
                         {/* Product Image */}
                         <div className="w-20 h-20 flex-shrink-0">
                           <img
-                            src={`http://localhost:5000/uploads/${item.productId?.productImage}`}
+                            src={`http://localhost:5000/uploads/${item.productId?.productImages[0]}`}
                             alt={item.productId?.productName}
                             className="
       w-full
@@ -185,6 +185,7 @@ function Orders() {
       object-cover
       rounded-xl
       border
+      object-top
     "
                           />
                         </div>
@@ -247,10 +248,11 @@ function Orders() {
                       View Order
                     </button>
 
-                    {order.orderStatus !== "Cancelled" && (
-                      <button
-                        onClick={() => handleCancelOrder(order._id)}
-                        className="
+                    {order.orderStatus !== "Cancelled" &&
+                      order.orderStatus !== "Delivered" && (
+                        <button
+                          onClick={() => handleCancelOrder(order._id)}
+                          className="
                                     flex-1
                                     border
                                     border-red-500
@@ -261,10 +263,10 @@ function Orders() {
                                     hover:text-white
                                     transition
                                   "
-                      >
-                        Cancel Order
-                      </button>
-                    )}
+                        >
+                          Cancel Order
+                        </button>
+                      )}
                   </div>
                 </div>
               ))}

@@ -33,7 +33,7 @@ function DiscountProduct(props) {
 
       setUser(data.details);
     } catch (error) {
-      console.error("Error checking login status:", error);
+      if (error.response?.status !== 401) console.error("Error checking login status:", error);
     }
   };
 

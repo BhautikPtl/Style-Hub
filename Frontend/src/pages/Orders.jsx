@@ -24,7 +24,7 @@ function Orders() {
       setIsLoggedIn(true);
       setLoading(false);
     } catch (error) {
-      console.error("Error checking login status:", error);
+      if (error.response?.status !== 401) console.error("Error checking login status:", error);
       setLoading(false);
     }
   };

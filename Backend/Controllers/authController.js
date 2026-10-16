@@ -7,7 +7,10 @@ const nodemailer = require("nodemailer");
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 const register = async (req, res) => {
-  const { username, name, email, password } = req.body;
+  const username = req.body.username?.trim();
+  const name = req.body.name?.trim();
+  const email = req.body.email?.trim().toLowerCase();
+  const password = req.body.password;
 
   if (!username || !name || !password || !email) {
     return res.status(400).json({ message: "All fields are required" });
@@ -35,9 +38,9 @@ const register = async (req, res) => {
       .status(400)
       .json({ message: "Username can only contain letters and numbers" });
   }
-  if (!/^[a-zA-Z]+$/.test(name)) {
+  if (!/^[a-zA-Z]+(?:[\s'-][a-zA-Z]+)*$/.test(name)) {
     return res.status(400).json({
-      message: "Name can only contain letters",
+      message: "Name can only contain letters, spaces, apostrophes, and hyphens",
     });
   }
 

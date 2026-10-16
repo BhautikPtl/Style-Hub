@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { IsloggedIn, adminOnly } = require("../middleware/authMiddleware");
 
-const upload = require("../Middleware/upload");
+const upload = require("../middleware/upload");
 const {
   addProduct,
   getProducts,

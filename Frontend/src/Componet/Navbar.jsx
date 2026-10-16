@@ -41,7 +41,7 @@ function Navbar(props) {
   const handleLogout = () => {
     axios
       .post(
-        "http://localhost:5000/api/auth/logout",
+        "https://style-hub-e-commerce-backend.onrender.com/api/auth/logout",
         {},
         { withCredentials: true },
       )

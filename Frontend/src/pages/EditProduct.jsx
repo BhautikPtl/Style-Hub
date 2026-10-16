@@ -27,7 +27,7 @@ function EditProduct() {
   const getProduct = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/api/product/get-product/${id}`,
+        `https://style-hub-e-commerce-backend.onrender.com/api/product/get-product/${id}`,
       );
 
       const product = data.product;
@@ -40,7 +40,7 @@ function EditProduct() {
 
       setPreview(
         product.productImages.map(
-          (img) => `http://localhost:5000/uploads/${img}`,
+          (img) => `https://style-hub-e-commerce-backend.onrender.com/uploads/${img}`,
         ),
       );
     } catch (error) {
@@ -68,7 +68,7 @@ function EditProduct() {
       }
 
       await axios.put(
-        `http://localhost:5000/api/product/update-product/${id}`,
+        `https://style-hub-e-commerce-backend.onrender.com/api/product/update-product/${id}`,
         formData,
         {
           withCredentials: true,

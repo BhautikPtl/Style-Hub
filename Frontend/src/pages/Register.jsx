@@ -19,7 +19,7 @@ function Register() {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/auth/register",
+        "https://style-hub-e-commerce-backend.onrender.com/api/auth/register",
         {
           name: Name,
           username: Username,
@@ -42,7 +42,7 @@ function Register() {
   const handleGoogleLoginSuccess = async (credential) => {
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/auth/googlelogin",
+        "https://style-hub-e-commerce-backend.onrender.com/api/auth/googlelogin",
         {
           credential,
         },

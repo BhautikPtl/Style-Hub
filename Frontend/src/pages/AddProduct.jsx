@@ -28,7 +28,7 @@ function AddProduct() {
     });
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/product/add-product",
+        "https://style-hub-e-commerce-backend.onrender.com/api/product/add-product",
         formData,
         {
           withCredentials: true,
@@ -50,8 +50,8 @@ function AddProduct() {
 
       setMessage(
         error?.response?.data?.message ||
-          error.message ||
-          "Something went wrong",
+        error.message ||
+        "Something went wrong",
       );
     }
   };

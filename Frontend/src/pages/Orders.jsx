@@ -16,7 +16,7 @@ function Orders() {
 
   const CheckLogin = async () => {
     try {
-      const { data } = await axios.get("http://localhost:5000/api/auth/me", {
+      const { data } = await axios.get("https://style-hub-e-commerce-backend.onrender.com/api/auth/me", {
         withCredentials: true,
       });
 
@@ -33,7 +33,7 @@ function Orders() {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        `http://localhost:5000/api/user/cancel-order/${orderId}`,
+        `https://style-hub-e-commerce-backend.onrender.com/api/user/cancel-order/${orderId}`,
         {},
         {
           withCredentials: true,
@@ -134,13 +134,12 @@ function Orders() {
 
                     <div
                       className={`px-4 py-2 rounded-xl text-sm font-semibold
-                    ${
-                      order.orderStatus === "Delivered"
-                        ? "bg-green-100 text-green-700"
-                        : order.orderStatus === "Cancelled"
-                          ? "bg-red-100 text-red-700"
-                          : "bg-yellow-100 text-yellow-700"
-                    }`}
+                    ${order.orderStatus === "Delivered"
+                          ? "bg-green-100 text-green-700"
+                          : order.orderStatus === "Cancelled"
+                            ? "bg-red-100 text-red-700"
+                            : "bg-yellow-100 text-yellow-700"
+                        }`}
                     >
                       {order.orderStatus}
                     </div>
@@ -177,7 +176,7 @@ function Orders() {
                         {/* Product Image */}
                         <div className="w-20 h-20 flex-shrink-0">
                           <img
-                            src={`http://localhost:5000/uploads/${item.productId?.productImages[0]}`}
+                            src={`https://style-hub-e-commerce-backend.onrender.com/uploads/${item.productId?.productImages[0]}`}
                             alt={item.productId?.productName}
                             className="
       w-full

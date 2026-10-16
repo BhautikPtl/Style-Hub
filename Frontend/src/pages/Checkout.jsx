@@ -17,7 +17,7 @@ const Checkout = () => {
 
   const fetchUser = async () => {
     try {
-      const { data } = await axios.get("http://localhost:5000/api/auth/me", {
+      const { data } = await axios.get("https://style-hub-e-commerce-backend.onrender.com/api/auth/me", {
         withCredentials: true,
       });
 
@@ -53,7 +53,7 @@ const Checkout = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/user/place-order",
+        "https://style-hub-e-commerce-backend.onrender.com/api/user/place-order",
         {
           address: selectedAddress,
           paymentMethod,
@@ -110,9 +110,8 @@ const Checkout = () => {
                   {user.addresses.map((address, index) => (
                     <label
                       key={index}
-                      className={`block border rounded-2xl p-4 cursor-pointer ${
-                        selectedAddress === address ? "border-black" : ""
-                      }`}
+                      className={`block border rounded-2xl p-4 cursor-pointer ${selectedAddress === address ? "border-black" : ""
+                        }`}
                     >
                       <input
                         type="radio"
@@ -181,7 +180,7 @@ const Checkout = () => {
                     className="flex gap-4 items-center border-b pb-4"
                   >
                     <img
-                      src={`http://localhost:5000/uploads/${item.productId?.productImages[0]}`}
+                      src={`https://style-hub-e-commerce-backend.onrender.com/uploads/${item.productId?.productImages[0]}`}
                       alt=""
                       className="w-20 h-20 rounded-xl object-cover object-top"
                     />

@@ -26,7 +26,7 @@ function Profile() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/user/add-address",
+        "https://style-hub-e-commerce-backend.onrender.com/api/user/add-address",
         address,
         {
           withCredentials: true,
@@ -46,7 +46,7 @@ function Profile() {
     } catch (error) {
       setMessage(
         error.response?.data?.message ||
-          "An error occurred while adding the address.",
+        "An error occurred while adding the address.",
       );
     }
   };
@@ -57,7 +57,7 @@ function Profile() {
 
   const CheckLogin = async () => {
     try {
-      const { data } = await axios.get("http://localhost:5000/api/auth/me", {
+      const { data } = await axios.get("https://style-hub-e-commerce-backend.onrender.com/api/auth/me", {
         withCredentials: true,
       });
 
@@ -138,116 +138,116 @@ function Profile() {
             {(showAddressForm ||
               !user.addresses ||
               user.addresses.length === 0) && (
-              <div className="bg-white rounded-3xl shadow-lg border border-gray-100 p-6">
-                <h2 className="text-xl font-bold mb-5">Add Address</h2>
+                <div className="bg-white rounded-3xl shadow-lg border border-gray-100 p-6">
+                  <h2 className="text-xl font-bold mb-5">Add Address</h2>
 
-                <form onSubmit={handleAddressSubmit} className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input
-                      type="text"
-                      placeholder="Full Name"
-                      value={address.fullName}
+                  <form onSubmit={handleAddressSubmit} className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <input
+                        type="text"
+                        placeholder="Full Name"
+                        value={address.fullName}
+                        onChange={(e) =>
+                          setAddress({
+                            ...address,
+                            fullName: e.target.value,
+                          })
+                        }
+                        className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black"
+                      />
+
+                      <input
+                        type="text"
+                        placeholder="Mobile"
+                        value={address.mobile}
+                        onChange={(e) =>
+                          setAddress({
+                            ...address,
+                            mobile: e.target.value,
+                          })
+                        }
+                        className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black"
+                      />
+
+                      <input
+                        type="text"
+                        placeholder="City"
+                        value={address.city}
+                        onChange={(e) =>
+                          setAddress({
+                            ...address,
+                            city: e.target.value,
+                          })
+                        }
+                        className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black"
+                      />
+
+                      <input
+                        type="text"
+                        placeholder="State"
+                        value={address.state}
+                        onChange={(e) =>
+                          setAddress({
+                            ...address,
+                            state: e.target.value,
+                          })
+                        }
+                        className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black"
+                      />
+
+                      <input
+                        type="text"
+                        placeholder="Pincode"
+                        value={address.zipCode}
+                        onChange={(e) =>
+                          setAddress({
+                            ...address,
+                            zipCode: e.target.value,
+                          })
+                        }
+                        className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black"
+                      />
+
+                      <input
+                        type="text"
+                        placeholder="Country"
+                        value={address.country}
+                        onChange={(e) =>
+                          setAddress({
+                            ...address,
+                            country: e.target.value,
+                          })
+                        }
+                        className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black"
+                      />
+                    </div>
+
+                    <textarea
+                      rows="4"
+                      placeholder="Address Line"
+                      value={address.addressLine1}
                       onChange={(e) =>
                         setAddress({
                           ...address,
-                          fullName: e.target.value,
+                          addressLine1: e.target.value,
                         })
                       }
                       className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black"
                     />
 
-                    <input
-                      type="text"
-                      placeholder="Mobile"
-                      value={address.mobile}
-                      onChange={(e) =>
-                        setAddress({
-                          ...address,
-                          mobile: e.target.value,
-                        })
-                      }
-                      className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black"
-                    />
+                    <button
+                      type="submit"
+                      className="w-full bg-black text-white py-3 rounded-xl font-semibold hover:bg-gray-800 transition"
+                    >
+                      Save Address
+                    </button>
+                  </form>
 
-                    <input
-                      type="text"
-                      placeholder="City"
-                      value={address.city}
-                      onChange={(e) =>
-                        setAddress({
-                          ...address,
-                          city: e.target.value,
-                        })
-                      }
-                      className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black"
-                    />
-
-                    <input
-                      type="text"
-                      placeholder="State"
-                      value={address.state}
-                      onChange={(e) =>
-                        setAddress({
-                          ...address,
-                          state: e.target.value,
-                        })
-                      }
-                      className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black"
-                    />
-
-                    <input
-                      type="text"
-                      placeholder="Pincode"
-                      value={address.zipCode}
-                      onChange={(e) =>
-                        setAddress({
-                          ...address,
-                          zipCode: e.target.value,
-                        })
-                      }
-                      className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black"
-                    />
-
-                    <input
-                      type="text"
-                      placeholder="Country"
-                      value={address.country}
-                      onChange={(e) =>
-                        setAddress({
-                          ...address,
-                          country: e.target.value,
-                        })
-                      }
-                      className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black"
-                    />
-                  </div>
-
-                  <textarea
-                    rows="4"
-                    placeholder="Address Line"
-                    value={address.addressLine1}
-                    onChange={(e) =>
-                      setAddress({
-                        ...address,
-                        addressLine1: e.target.value,
-                      })
-                    }
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black"
-                  />
-
-                  <button
-                    type="submit"
-                    className="w-full bg-black text-white py-3 rounded-xl font-semibold hover:bg-gray-800 transition"
-                  >
-                    Save Address
-                  </button>
-                </form>
-
-                {message && (
-                  <p className="text-center text-green-600 mt-4">{message}</p>
-                )}
-              </div>
-            )}
+                  {message && (
+                    <p className="text-center text-green-600 mt-4">{message}</p>
+                  )}
+                </div>
+              )}
           </div>
         </div>
       ) : (

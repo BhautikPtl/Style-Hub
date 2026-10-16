@@ -16,7 +16,7 @@ function Login() {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        "https://style-hub-e-commerce-backend.onrender.com/api/auth/login",
         {
           username: Username,
           password: Password,
@@ -39,7 +39,7 @@ function Login() {
   const handleGoogleLoginSuccess = async (credential) => {
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/auth/googlelogin",
+        "https://style-hub-e-commerce-backend.onrender.com/api/auth/googlelogin",
         {
           credential,
         },
@@ -56,8 +56,8 @@ function Login() {
 
       setMessage(
         error?.response?.data?.message ||
-          error.message ||
-          "An error occurred during Google login.",
+        error.message ||
+        "An error occurred during Google login.",
       );
     }
   };

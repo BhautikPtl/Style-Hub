@@ -9,7 +9,7 @@ function ProtectedRoute({ children, url }) {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        await axios.get(`http://localhost:5000/api/auth/${url}`, {
+        await axios.get(`https://style-hub-e-commerce-backend.onrender.com/api/auth/${url}`, {
           withCredentials: true,
         });
 

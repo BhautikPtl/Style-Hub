@@ -23,7 +23,7 @@ function AdminDashboard() {
   const fetchProducts = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/product/get-admin-products",
+        "https://style-hub-e-commerce-backend.onrender.com/api/product/get-admin-products",
         {
           withCredentials: true,
         },
@@ -38,7 +38,7 @@ function AdminDashboard() {
   const fetchOrders = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/user/get-orders",
+        "https://style-hub-e-commerce-backend.onrender.com/api/user/get-orders",
         {
           withCredentials: true,
         },
@@ -53,7 +53,7 @@ function AdminDashboard() {
   const fetchUsers = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/auth/get-users",
+        "https://style-hub-e-commerce-backend.onrender.com/api/auth/get-users",
         {
           withCredentials: true,
         },
@@ -173,7 +173,7 @@ function AdminDashboard() {
                   >
                     <div className="flex items-center gap-4">
                       <img
-                        src={`http://localhost:5000/uploads/${product.productImages[0]}`}
+                        src={`https://style-hub-e-commerce-backend.onrender.com/uploads/${product.productImages[0]}`}
                         className="w-16 h-16 rounded-xl object-cover object-top"
                         alt={product.productName}
                       />

@@ -13,12 +13,12 @@ function ShowOrder() {
 
   const getOrders = async () => {
     try {
-      await axios.get("http://localhost:5000/api/auth/me", {
+      await axios.get("https://style-hub-e-commerce-backend.onrender.com/api/auth/me", {
         withCredentials: true,
       });
 
       const { data } = await axios.get(
-        "http://localhost:5000/api/user/get-orders",
+        "https://style-hub-e-commerce-backend.onrender.com/api/user/get-orders",
         {
           withCredentials: true,
         },
@@ -38,7 +38,7 @@ function ShowOrder() {
     setLoading(true);
     try {
       await axios.post(
-        `http://localhost:5000/api/user/update-status/${orderId}`,
+        `https://style-hub-e-commerce-backend.onrender.com/api/user/update-status/${orderId}`,
 
         {
           orderStatus: newStatus,
@@ -55,9 +55,9 @@ function ShowOrder() {
         prev.map((order) =>
           order._id === orderId
             ? {
-                ...order,
-                orderStatus: newStatus,
-              }
+              ...order,
+              orderStatus: newStatus,
+            }
             : order,
         ),
       );
@@ -275,7 +275,7 @@ function ShowOrder() {
                             "
                       >
                         <img
-                          src={`http://localhost:5000/uploads/${item.productId.productImages[0]}`}
+                          src={`https://style-hub-e-commerce-backend.onrender.com/uploads/${item.productId.productImages[0]}`}
                           className="
                                 w-20
                                 h-20

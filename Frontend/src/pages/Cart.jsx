@@ -17,7 +17,7 @@ function Cart() {
 
   const CheckLogin = async () => {
     try {
-      const { data } = await axios.get("http://localhost:5000/api/auth/me", {
+      const { data } = await axios.get("https://style-hub-e-commerce-backend.onrender.com/api/auth/me", {
         withCredentials: true,
       });
 
@@ -33,7 +33,7 @@ function Cart() {
   const handleRemoveFromCart = async (productId) => {
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/product/remove-from-cart/${productId}`,
+        `https://style-hub-e-commerce-backend.onrender.com/api/product/remove-from-cart/${productId}`,
         {},
         {
           withCredentials: true,
@@ -49,7 +49,7 @@ function Cart() {
   const handleIncreaseQuantity = async (productId) => {
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/product/increase-cart-quantity/${productId}`,
+        `https://style-hub-e-commerce-backend.onrender.com/api/product/increase-cart-quantity/${productId}`,
         {},
         {
           withCredentials: true,
@@ -67,7 +67,7 @@ function Cart() {
   const handleDecreaseQuantity = async (productId) => {
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/product/decrease-cart-quantity/${productId}`,
+        `https://style-hub-e-commerce-backend.onrender.com/api/product/decrease-cart-quantity/${productId}`,
         {},
         {
           withCredentials: true,
@@ -126,7 +126,7 @@ function Cart() {
                       {/* Product Image */}
                       <div className="w-full md:w-40 h-40 rounded-2xl overflow-hidden bg-gray-100 flex-shrink-0">
                         <img
-                          src={`http://localhost:5000/uploads/${item.productId?.productImages[0]}`}
+                          src={`https://style-hub-e-commerce-backend.onrender.com/uploads/${item.productId?.productImages[0]}`}
                           alt={item.productId?.productName}
                           className="w-full h-full object-cover object-top"
                         />

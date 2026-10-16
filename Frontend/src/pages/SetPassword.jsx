@@ -23,7 +23,7 @@ function SetPassword() {
       setMessage("");
 
       const { data } = await axios.post(
-        `http://localhost:5000/api/auth/resetpassword/${token}`,
+        `https://style-hub-e-commerce-backend.onrender.com/api/auth/resetpassword/${token}`,
         {
           password: newPassword,
         },
@@ -38,7 +38,7 @@ function SetPassword() {
     } catch (error) {
       setMessage(
         error.response.data.message ||
-          "An error occurred while resetting the password.",
+        "An error occurred while resetting the password.",
       );
     } finally {
       setLoading(false);

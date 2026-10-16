@@ -20,7 +20,7 @@ function Detailst() {
 
   const fetchUser = async () => {
     try {
-      const { data } = await axios.get("http://localhost:5000/api/auth/me", {
+      const { data } = await axios.get("https://style-hub-e-commerce-backend.onrender.com/api/auth/me", {
         withCredentials: true,
       });
 
@@ -35,7 +35,7 @@ function Detailst() {
     if (isLoggedIn) {
       try {
         const response = await axios.post(
-          `http://localhost:5000/api/product/add-to-cart/${productId}`,
+          `https://style-hub-e-commerce-backend.onrender.com/api/product/add-to-cart/${productId}`,
           {},
           {
             withCredentials: true,
@@ -61,7 +61,7 @@ function Detailst() {
     if (isLoggedIn) {
       try {
         const response = await axios.post(
-          `http://localhost:5000/api/product/add-to-favorites/${productId}`,
+          `https://style-hub-e-commerce-backend.onrender.com/api/product/add-to-favorites/${productId}`,
           {},
           {
             withCredentials: true,
@@ -91,7 +91,7 @@ function Detailst() {
   const fetchProduct = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/api/product/get-product/${id}`,
+        `https://style-hub-e-commerce-backend.onrender.com/api/product/get-product/${id}`,
         {
           withCredentials: true,
         },
@@ -160,14 +160,13 @@ function Detailst() {
                   <div
                     key={index}
                     onClick={() => setSelectedImage(image)}
-                    className={`w-20 h-20 rounded-2xl overflow-hidden cursor-pointer border-2 transition duration-300 flex-shrink-0 ${
-                      selectedImage === image
+                    className={`w-20 h-20 rounded-2xl overflow-hidden cursor-pointer border-2 transition duration-300 flex-shrink-0 ${selectedImage === image
                         ? "border-black"
                         : "border-gray-300 hover:border-black"
-                    }`}
+                      }`}
                   >
                     <img
-                      src={`http://localhost:5000/uploads/${image}`}
+                      src={`https://style-hub-e-commerce-backend.onrender.com/uploads/${image}`}
                       alt={`Product ${index + 1}`}
                       className="w-full h-full object-cover"
                     />
@@ -178,7 +177,7 @@ function Detailst() {
               {/* Main Image */}
               <div className="order-1 lg:order-2 flex-1">
                 <img
-                  src={`http://localhost:5000/uploads/${selectedImage}`}
+                  src={`https://style-hub-e-commerce-backend.onrender.com/uploads/${selectedImage}`}
                   alt={product.productName}
                   className="max-h-full object-cover rounded-2xl w-full"
                 />

@@ -17,7 +17,7 @@ function ShowProduct() {
     try {
       setLoading(true);
       await axios.delete(
-        `http://localhost:5000/api/product/delete-product/${productId}`,
+        `https://style-hub-e-commerce-backend.onrender.com/api/product/delete-product/${productId}`,
         {
           withCredentials: true,
         },
@@ -31,8 +31,8 @@ function ShowProduct() {
       console.log(error);
       setMessage(
         error?.response?.data?.message ||
-          error.message ||
-          "Something went wrong",
+        error.message ||
+        "Something went wrong",
       );
       setLoading(false);
     }
@@ -41,7 +41,7 @@ function ShowProduct() {
   const fetchProducts = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/product/get-admin-products",
+        "https://style-hub-e-commerce-backend.onrender.com/api/product/get-admin-products",
         {
           withCredentials: true,
         },
@@ -53,8 +53,8 @@ function ShowProduct() {
 
       setMessage(
         error?.response?.data?.message ||
-          error.message ||
-          "Something went wrong",
+        error.message ||
+        "Something went wrong",
       );
     } finally {
       setLoading(false);
@@ -69,7 +69,7 @@ function ShowProduct() {
     try {
       setLoading(true);
       const response = await axios.put(
-        `http://localhost:5000/api/product/update-discount/${productId}`,
+        `https://style-hub-e-commerce-backend.onrender.com/api/product/update-discount/${productId}`,
         { productDiscount: newDiscount },
         {
           withCredentials: true,
@@ -90,8 +90,8 @@ function ShowProduct() {
       console.log(error);
       setMessage(
         error?.response?.data?.message ||
-          error.message ||
-          "Something went wrong",
+        error.message ||
+        "Something went wrong",
       );
       setLoading(false);
     }
@@ -199,7 +199,7 @@ function ShowProduct() {
               {/* Product Image */}
               <div className="relative">
                 <img
-                  src={`http://localhost:5000/uploads/${product.productImages[0]}`}
+                  src={`https://style-hub-e-commerce-backend.onrender.com/uploads/${product.productImages[0]}`}
                   alt={product.productName}
                   className="w-full h-64 object-cover object-top"
                   onError={(e) => {

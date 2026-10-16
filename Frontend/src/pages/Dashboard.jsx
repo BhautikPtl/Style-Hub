@@ -28,7 +28,7 @@ function Dashboard() {
 
   const CheckLogin = async () => {
     try {
-      const { data } = await axios.get("http://localhost:5000/api/auth/me", {
+      const { data } = await axios.get("https://style-hub-e-commerce-backend.onrender.com/api/auth/me", {
         withCredentials: true,
       });
 
@@ -69,7 +69,7 @@ function Dashboard() {
     if (isLoggedIn) {
       try {
         const response = await axios.post(
-          `http://localhost:5000/api/product/add-to-cart/${productId}`,
+          `https://style-hub-e-commerce-backend.onrender.com/api/product/add-to-cart/${productId}`,
           {},
           {
             withCredentials: true,
@@ -91,7 +91,7 @@ function Dashboard() {
     if (isLoggedIn) {
       try {
         const response = await axios.post(
-          `http://localhost:5000/api/product/add-to-favorites/${productId}`,
+          `https://style-hub-e-commerce-backend.onrender.com/api/product/add-to-favorites/${productId}`,
           {},
           {
             withCredentials: true,
@@ -125,7 +125,7 @@ function Dashboard() {
   const fetchProducts = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/product/get-products",
+        "https://style-hub-e-commerce-backend.onrender.com/api/product/get-products",
         {
           withCredentials: true,
         },
@@ -137,8 +137,8 @@ function Dashboard() {
 
       setMessage(
         error?.response?.data?.message ||
-          error.message ||
-          "Something went wrong",
+        error.message ||
+        "Something went wrong",
       );
     }
   };
@@ -331,7 +331,7 @@ function Dashboard() {
 
                   <img
                     onClick={() => navigate(`/detail/${product._id}`)}
-                    src={`http://localhost:5000/uploads/${product.productImages[0]}`}
+                    src={`https://style-hub-e-commerce-backend.onrender.com/uploads/${product.productImages[0]}`}
                     alt={product.productName}
                     className="w-full h-80 object-cover object-top hover:scale-105 transition duration-300"
                   />
@@ -346,7 +346,7 @@ function Dashboard() {
                     ₹
                     {Math.round(
                       product.productPrice -
-                        (product.productPrice * product.productDiscount) / 100,
+                      (product.productPrice * product.productDiscount) / 100,
                     )}
                   </span>
 

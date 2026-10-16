@@ -13,7 +13,7 @@ function ForgetPassword() {
       setMessage("");
 
       const { data } = await axios.post(
-        "http://localhost:5000/api/auth/forgotpassword",
+        "https://style-hub-e-commerce-backend.onrender.com/api/auth/forgotpassword",
         {
           email,
         },
@@ -24,7 +24,7 @@ function ForgetPassword() {
     } catch (error) {
       setMessage(
         error.response.data.message ||
-          "An error occurred while sending the password reset email.",
+        "An error occurred while sending the password reset email.",
       );
     } finally {
       setLoading(false);

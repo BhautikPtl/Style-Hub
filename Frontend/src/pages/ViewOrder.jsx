@@ -17,7 +17,7 @@ function ViewOrder() {
 
   const fetchUser = async () => {
     try {
-      const { data } = await axios.get("http://localhost:5000/api/auth/me", {
+      const { data } = await axios.get("https://style-hub-e-commerce-backend.onrender.com/api/auth/me", {
         withCredentials: true,
       });
 
@@ -69,13 +69,12 @@ function ViewOrder() {
 
             <span
               className={`px-4 py-2 rounded-xl
-                            ${
-                              order.orderStatus === "Delivered"
-                                ? "bg-green-100 text-green-700"
-                                : order.orderStatus === "Cancelled"
-                                  ? "bg-red-100 text-red-700"
-                                  : "bg-yellow-100 text-yellow-700"
-                            }`}
+                            ${order.orderStatus === "Delivered"
+                  ? "bg-green-100 text-green-700"
+                  : order.orderStatus === "Cancelled"
+                    ? "bg-red-100 text-red-700"
+                    : "bg-yellow-100 text-yellow-700"
+                }`}
             >
               {order.orderStatus}
             </span>
@@ -93,7 +92,7 @@ function ViewOrder() {
                 className="flex items-center gap-4 border rounded-2xl p-4"
               >
                 <img
-                  src={`http://localhost:5000/uploads/${item.productId?.productImages[0]}`}
+                  src={`https://style-hub-e-commerce-backend.onrender.com/uploads/${item.productId?.productImages[0]}`}
                   alt={item.productId?.productName}
                   className="w-24 h-24 object-cover object-top rounded-xl"
                 />

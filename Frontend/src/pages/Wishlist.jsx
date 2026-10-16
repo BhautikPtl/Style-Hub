@@ -15,7 +15,7 @@ function Wishlist() {
 
   const CheckLogin = async () => {
     try {
-      const { data } = await axios.get("http://localhost:5000/api/auth/me", {
+      const { data } = await axios.get("https://style-hub-e-commerce-backend.onrender.com/api/auth/me", {
         withCredentials: true,
       });
 
@@ -31,7 +31,7 @@ function Wishlist() {
   const handleRemoveFromWishlist = async (productId) => {
     try {
       await axios.post(
-        `http://localhost:5000/api/product/add-to-favorites/${productId}`,
+        `https://style-hub-e-commerce-backend.onrender.com/api/product/add-to-favorites/${productId}`,
         {},
         { withCredentials: true },
       );
@@ -77,7 +77,7 @@ function Wishlist() {
                 >
                   <div className="bg-gray-100">
                     <img
-                      src={`http://localhost:5000/uploads/${item.productImages?.[0]}`}
+                      src={`https://style-hub-e-commerce-backend.onrender.com/uploads/${item.productImages?.[0]}`}
                       alt={item.productName}
                       className="w-full h-72 object-cover object-top hover:scale-105 transition duration-300"
                     />

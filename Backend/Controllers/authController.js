@@ -5,6 +5,7 @@ const { OAuth2Client } = require("google-auth-library");
 const nodemailer = require("nodemailer");
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+const isProduction = process.env.NODE_ENV === "production";
 
 const register = async (req, res) => {
   const username = req.body.username?.trim();
@@ -72,8 +73,8 @@ const register = async (req, res) => {
 
   res.cookie("token", token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
     maxAge: 24 * 60 * 60 * 1000, // 1 day //1 * 60 * 1000 1 minute
   });
 
@@ -122,8 +123,8 @@ const login = async (req, res) => {
 
   res.cookie("token", token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
     maxAge: 24 * 60 * 60 * 1000, // 1 day //1 * 60 * 1000 1 minute
   });
   const userWithoutPassword = await userModule
@@ -193,8 +194,8 @@ const googleLogin = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax",
       maxAge: 24 * 60 * 60 * 1000,
     });
 
@@ -398,7 +399,11 @@ const resetPassword = async (req, res) => {
 };
 
 const logout = (req, res) => {
-  res.clearCookie("token");
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
+  });
   res.status(200).json({ message: "Logged out successfully" });
 };
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../Componet/Navbar";
-import axios from "axios";
+import axios from "../api";
 import { useParams, useNavigate } from "react-router-dom";
 
 function Detailst() {
@@ -16,7 +16,7 @@ function Detailst() {
   useEffect(() => {
     fetchProduct();
     fetchUser();
-  }, []);
+  }, [id]);
 
   const fetchUser = async () => {
     try {
@@ -161,8 +161,8 @@ function Detailst() {
                     key={index}
                     onClick={() => setSelectedImage(image)}
                     className={`w-20 h-20 rounded-2xl overflow-hidden cursor-pointer border-2 transition duration-300 flex-shrink-0 ${selectedImage === image
-                        ? "border-black"
-                        : "border-gray-300 hover:border-black"
+                      ? "border-black"
+                      : "border-gray-300 hover:border-black"
                       }`}
                   >
                     <img

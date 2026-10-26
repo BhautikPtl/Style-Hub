@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../Componet/Navbar";
-import axios from "axios";
+import axios from "../api";
 import { useParams, useNavigate } from "react-router-dom";
 
 function ViewOrder() {

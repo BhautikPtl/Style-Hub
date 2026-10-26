@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../api";
 import { useEffect } from "react";
 
 function FilterProduct(props) {
@@ -112,7 +112,6 @@ function FilterProduct(props) {
 
   useEffect(() => {
     filterProducts();
-    CheckLogin();
   }, []);
 
   const filteredProducts = products.filter((product) => {

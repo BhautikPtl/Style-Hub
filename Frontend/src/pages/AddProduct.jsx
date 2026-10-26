@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AdminNavbar from "../Componet/AdminNavbar";
-import axios from "axios";
+import axios from "../api";
 
 function AddProduct() {
   const [productName, setProductName] = useState("");

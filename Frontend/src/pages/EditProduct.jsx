@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../api";
 import AdminNavbar from "../Componet/AdminNavbar";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -22,7 +22,7 @@ function EditProduct() {
 
   useEffect(() => {
     getProduct();
-  }, []);
+  }, [id]);
 
   const getProduct = async () => {
     try {

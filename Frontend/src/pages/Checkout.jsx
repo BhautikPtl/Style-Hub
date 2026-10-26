@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../api";
 import Navbar from "../Componet/Navbar";
 import { useNavigate } from "react-router-dom";
 
@@ -157,15 +157,7 @@ const Checkout = () => {
                   Cash On Delivery
                 </label>
 
-                <label className="flex items-center gap-3 border p-4 rounded-xl cursor-pointer">
-                  <input
-                    type="radio"
-                    value="RAZORPAY"
-                    checked={paymentMethod === "RAZORPAY"}
-                    onChange={(e) => setPaymentMethod(e.target.value)}
-                  />
-                  Razorpay
-                </label>
+
               </div>
             </div>
 

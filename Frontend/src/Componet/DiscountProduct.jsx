@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Herobg from "../assets/heroImg.png";
 import DiscountTag from "../3dImage/DiscountTag.png";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHeart,
@@ -20,10 +20,6 @@ function DiscountProduct(props) {
   const navigate = useNavigate();
 
   const isLoggedIn = isLogged;
-
-  useEffect(() => {
-    CheckLogin();
-  }, []);
 
   const CheckLogin = async () => {
     try {
@@ -113,7 +109,6 @@ function DiscountProduct(props) {
 
   useEffect(() => {
     fetchProducts();
-    CheckLogin();
   }, []);
 
   const isProductInCart = (productId) => {

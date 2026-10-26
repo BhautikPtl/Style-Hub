@@ -17,7 +17,8 @@ function Footer() {
 
   const quickLinks = [
     { path: "/", label: "Home" },
-    { path: "/shop", label: "Shop" },
+    { path: "/man", label: "Man" },
+    { path: "/woman", label: "Woman" },
     { path: "/wishlist", label: "Wishlist" },
     { path: "/cart", label: "Cart" },
     { path: "/profile", label: "Profile" },

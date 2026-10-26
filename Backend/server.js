@@ -12,6 +12,11 @@ const db = require("./Modules/db");
 const authRoutes = require("./Routes/authRoutes");
 const userRoutes = require("./Routes/userRoutes");
 const productRoutes = require("./Routes/productroute");
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  "http://localhost:5555",
+  "http://127.0.0.1:5555",
+].filter(Boolean);
 
 app.use(
   helmet({
@@ -32,7 +37,13 @@ app.use(cokieParser());
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Origin is not allowed by CORS"));
+    },
     credentials: true,
   }),
 );

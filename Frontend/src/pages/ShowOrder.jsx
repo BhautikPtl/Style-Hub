@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AdminNavbar from "../Componet/AdminNavbar";
-import axios from "axios";
+import axios from "../api";
 
 function ShowOrder() {
   const [orders, setOrders] = useState([]);
@@ -13,10 +13,6 @@ function ShowOrder() {
 
   const getOrders = async () => {
     try {
-      await axios.get("https://style-hub-e-commerce-backend.onrender.com/api/auth/me", {
-        withCredentials: true,
-      });
-
       const { data } = await axios.get(
         "https://style-hub-e-commerce-backend.onrender.com/api/user/get-orders",
         {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import logo from "../assets/Logo.png";
 import { GoogleLogin } from "@react-oauth/google";
 import Login3d from "./../3dImage/Login-3d.png";
-import axios from "axios";
+import axios from "../api";
 import { useNavigate } from "react-router-dom";
 
 function Login() {

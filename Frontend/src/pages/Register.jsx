@@ -3,7 +3,7 @@ import logo from "../assets/Logo.png";
 import { GoogleLogin } from "@react-oauth/google";
 import Register3d from "./../3dImage/Register-3d.png";
 import { useState } from "react";
-import axios from "axios";
+import axios from "../api";
 import { data, useNavigate } from "react-router-dom";
 
 function Register() {

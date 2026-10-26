@@ -1,6 +1,6 @@
 import Navbar from "../Componet/Navbar";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../api";
 import { useNavigate } from "react-router-dom";
 import Footer from "../Componet/Footer";
 
@@ -281,7 +281,7 @@ function Orders() {
               </p>
 
               <button
-                onClick={() => navigate("/shop")}
+                onClick={() => navigate("/")}
                 className="mt-6 bg-black text-white px-8 py-3 rounded-xl"
               >
                 Start Shopping

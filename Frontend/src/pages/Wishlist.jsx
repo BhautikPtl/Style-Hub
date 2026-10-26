@@ -1,6 +1,6 @@
 import Navbar from "../Componet/Navbar";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../api";
 import { useNavigate } from "react-router-dom";
 
 function Wishlist() {

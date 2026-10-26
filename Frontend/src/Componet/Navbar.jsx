@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../assets/Logo.png";
 import userPlaceholder from "../assets/UserPlaceholder.png";
 
@@ -9,7 +9,6 @@ import {
   faLayerGroup,
   faBoxOpen,
   faHeart,
-  faStar,
   faBars,
   faXmark,
   faArrowRightFromBracket,
@@ -18,7 +17,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { NavLink } from "react-router-dom";
-import axios from "axios";
+import axios from "../api";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -27,13 +26,33 @@ function Navbar(props) {
 
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [authState, setAuthState] = useState({
+    user: null,
+    loading: typeof isLogged !== "boolean",
+  });
 
-  const Islogin = isLogged;
+  useEffect(() => {
+    if (typeof isLogged === "boolean") {
+      setAuthState((current) =>
+        current.loading ? { user: null, loading: false } : current,
+      );
+      return;
+    }
+
+    axios
+      .get("https://style-hub-e-commerce-backend.onrender.com/api/auth/me", {
+        withCredentials: true,
+      })
+      .then(({ data }) => setAuthState({ user: data.details, loading: false }))
+      .catch(() => setAuthState({ user: null, loading: false }));
+  }, [isLogged]);
+
+  const currentUser = user || authState.user;
+  const Islogin = typeof isLogged === "boolean" ? isLogged : Boolean(authState.user);
 
   const navItems = [
     { path: "/orders", label: "Orders", icon: faBoxOpen },
     { path: "/wishlist", label: "Wishlist", icon: faHeart },
-    { path: "/review", label: "Review", icon: faStar },
     { path: "/about", label: "About", icon: faCircleInfo },
   ];
 
@@ -149,7 +168,7 @@ function Navbar(props) {
 
           {/* Right */}
           <div className="flex items-center gap-4">
-            {Islogin ? (
+            {authState.loading ? null : Islogin ? (
               <>
                 {/* Cart */}
                 <NavLink
@@ -163,7 +182,7 @@ function Navbar(props) {
                   <FontAwesomeIcon icon={faCartShopping} className="text-2xl" />
 
                   <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-black text-white text-[10px] font-bold">
-                    {user?.cart?.length || 0}
+                    {currentUser?.cart?.length || 0}
                   </span>
                 </NavLink>
 
@@ -179,12 +198,12 @@ function Navbar(props) {
                   className="flex items-center gap-3 rounded-full px-5 py-2 cursor-pointer hover:bg-gray-100 transition"
                 >
                   <img
-                    src={user?.profilePicture || userPlaceholder}
+                    src={currentUser?.profilePicture || userPlaceholder}
                     alt="Profile"
                     className="w-8 h-8 rounded-full border object-cover"
                   />
 
-                  <span className="hidden lg:block">Hello, {user.name}</span>
+                  <span className="hidden lg:block">Hello, {currentUser?.name || "there"}</span>
                 </button>
 
                 {/* Dropdown */}

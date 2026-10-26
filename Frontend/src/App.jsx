@@ -6,7 +6,6 @@ import Dashboard from "./pages/Dashboard";
 import Shop from "./pages/Shop";
 import Orders from "./pages/Orders";
 import Wishlist from "./pages/Wishlist";
-import Review from "./pages/Review";
 import Cart from "./pages/Cart";
 import Admindashboard from "./pages/AdminDashboard";
 import ProtectedRoute from "./Private/ProtectedRoute";
@@ -26,6 +25,7 @@ import Support from "./pages/Support";
 import EditProduct from "./pages/EditProduct";
 import Man from "./pages/Man";
 import Woman from "./pages/Woman";
+import About from "./pages/About";
 // import EditProduct from './pages/EditProduct';
 
 function App() {
@@ -83,7 +83,7 @@ function App() {
         <Route path="/woman" element={<Woman />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/review" element={<Review />} />
+        <Route path="/about" element={<About />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/view-order/:id" element={<ViewOrder />} />

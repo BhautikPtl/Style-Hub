@@ -13,7 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import Footer from "../Componet/Footer";
-import axios from "axios";
+import axios from "../api";
 
 function Dashboard() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -163,6 +163,8 @@ function Dashboard() {
     startIndex + itemsPerPage,
   );
 
+
+
   {
     /* loading screen */
   }
@@ -205,7 +207,7 @@ function Dashboard() {
               premium collections designed to elevate your everyday look.
             </p>
 
-            <div className="flex flex-wrap gap-4 mt-8">
+            {/* <div className="flex flex-wrap gap-4 mt-8">
               <button className="bg-black text-white px-8 py-4 rounded-2xl font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
                 Shop Now
               </button>
@@ -213,7 +215,7 @@ function Dashboard() {
               <button className="border border-black px-8 py-4 rounded-2xl font-semibold transition-all duration-300 hover:bg-black hover:text-white">
                 Explore
               </button>
-            </div>
+            </div> */}
           </div>
 
           {/* Right Image */}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../api";
 import Navbar from "../Componet/Navbar";
 import userPlaceholder from "../assets/UserPlaceholder.png";
 

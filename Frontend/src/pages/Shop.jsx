@@ -4,7 +4,7 @@ import Herobg from "../assets/heroImg.png";
 import Footer from "../Componet/Footer";
 import FilterProduct from "../Componet/FilterProduct";
 import DiscountProduct from "../Componet/DiscountProduct";
-import axios from "axios";
+import axios from "../api";
 import { useNavigate } from "react-router-dom";
 
 function Shop() {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AdminNavbar from "../Componet/AdminNavbar";
-import axios from "axios";
+import axios from "../api";
 import { useNavigate } from "react-router-dom";
 
 function ShowProduct() {
